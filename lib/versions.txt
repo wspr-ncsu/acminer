@@ -1,0 +1,43 @@
+# For reading in and parsing dex files
+baksmali: baksmali-2.2.7
+smali: smali-2.2.7
+dexlib2: dexlib2-2.2.7
+util: util-2.2.7
+
+# Additional Java libraries
+guava: guava-19.0
+
+# Logging
+slf4j-api: slf4j-api-1.7.18
+slf4j-simple: slf4j-simple-1.7.18
+
+# Basic XStream
+xstream: xstream-1.4.7
+xmlpull: xmlpull-1.1.3.1
+xpp3: xpp3_min-1.1.4c
+
+# Read JSON files
+json: json-20190722
+
+# Read YAML files
+snakeyaml-engine: snakeyaml-engine-2.1
+
+classgraph: classgraph-4.8.62
+
+# For computing hashes of input/intermediate data files to detect changes
+# and only run phases if changes have occured in dependencies
+bcprov: bcprov-jdk15on-154
+
+# Extracting information from uncompiled Java source files (i.e. method
+# argument variable names)
+roaster-api: roaster-api-2.21.0.Final
+roaster-jdt: roaster-jdt-2.21.0.Final
+
+jsoup: jsoup-1.11.2
+
+doclava: doclava-1.0.6
+jdk-tools: tools.jar in jdk-1.8.0_101
+antlr: antlr-3.5.2
+antlr-runtime: antlr-runtime-3.5.2
+jsilver: jsilver-1.0.0
+tagsoup: tagsoup-1.2.1

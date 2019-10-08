@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="TBVDroid-PolicyGenerator">
+    <property environment="env"/>
+    <property name="sysImg2JimpleJar.location" value="../sysImg2JimpleJar"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../Program Files/eclipse/"/>
+    <property name="heros.location" value="../heros"/>
+    <property name="jasmin.location" value="../jasmin"/>
+    <property name="soot.location" value="../soot-mod"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="jasmin.classpath">
+        <pathelement location="${jasmin.location}/classes"/>
+        <pathelement location="${jasmin.location}/libs/java_cup.jar"/>
+    </path>
+    <path id="Plug-in Dependencies.libraryclasspath"/>
+    <path id="Persisted container [org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER for project [heros]].libraryclasspath"/>
+    <path id="heros.classpath">
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="${heros.location}/target/classes"/>
+        <pathelement location="${heros.location}/target/test-classes"/>
+        <pathelement location="${heros.location}/slf4j-api-1.7.5.jar"/>
+        <pathelement location="${heros.location}/slf4j-simple-1.7.5.jar"/>
+        <pathelement location="${heros.location}/junit.jar"/>
+        <pathelement location="${heros.location}/org.hamcrest.core_1.3.0.jar"/>
+        <pathelement location="${heros.location}/mockito-all-1.9.5.jar"/>
+        <path refid="Persisted container [org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER for project [heros]].libraryclasspath"/>
+        <pathelement location="${heros.location}/guava-18.0.jar"/>
+    </path>
+    <path id="soot.classpath">
+        <pathelement location="${soot.location}/classes"/>
+        <pathelement location="${soot.location}/testclasses"/>
+        <pathelement location="${soot.location}/libs/guava-18.0.jar"/>
+        <path refid="jasmin.classpath"/>
+        <path refid="heros.classpath"/>
+        <pathelement location="${soot.location}/libs/polyglot.jar"/>
+        <pathelement location="${soot.location}/libs/AXMLPrinter2.jar"/>
+        <pathelement location="${soot.location}/libs/hamcrest-all-1.3.jar"/>
+        <pathelement location="${soot.location}/libs/junit-4.11.jar"/>
+        <pathelement location="${soot.location}/libs/cglib-nodep-2.2.2.jar"/>
+        <pathelement location="${soot.location}/libs/javassist-3.18.2-GA.jar"/>
+        <pathelement location="${soot.location}/libs/mockito-all-1.10.8.jar"/>
+        <pathelement location="${soot.location}/libs/powermock-mockito-1.6.1-full.jar"/>
+        <pathelement location="${soot.location}/libs/jboss-common-core-2.5.0.Final.jar"/>
+        <pathelement location="${soot.location}/libs/asm-debug-all-5.1.jar"/>
+        <pathelement location="${soot.location}/libs/dexlib2-2.2b3-55c33ebb.jar"/>
+        <pathelement location="${soot.location}/libs/util-2.2b3-55c33ebb.jar"/>
+    </path>
+    <path id="TBVDroid-PolicyGenerator.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/guava-19.0.jar"/>
+        <pathelement location="lib/bcprov-jdk15on-154.jar"/>
+        <pathelement location="lib/com.microsoft.z3.jar"/>
+        <pathelement location="lib/xmlpull-1.1.3.1.jar"/>
+        <pathelement location="lib/xpp3_min-1.1.4c.jar"/>
+        <pathelement location="lib/xstream-1.4.7.jar"/>
+        <pathelement location="lib/slf4j-api-1.7.18.jar"/>
+        <pathelement location="lib/slf4j-simple-1.7.18.jar"/>
+        <path refid="soot.classpath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${heros.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${jasmin.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${soot.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${heros.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${jasmin.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${soot.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="build.xml" dir="${sysImg2JimpleJar.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${sysImg2JimpleJar.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="ClassFinder">
+        <java classname="org.sag.common.tools.ClassFinder" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="Consistency Analysis">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit"/>
+            <arg line="-o C:\DocumentsExt\OutputGit\tbvdroid-results\android-2.3.2_r1\NativeMethods -p names=GeneralAnalysis,ConsistencyAnalysisPerService,ConsistencyAnalysisAcrossService ins=C:\DocumentsExt\OutputGit\tbvdroid-results\android-2.3.2_r1\NativeMethods\out\constraints.xml"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="ConsistencyAnalysis">
+        <java classname="org.sag.pminer.postprocess.consistencyanalysis.ConsistencyAnalysis" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="Constraint">
+        <java classname="org.sag.pminer.constraintminer.constraints.Constraint" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="ContextQueriesDatabase">
+        <java classname="org.sag.pminer.phases.contextqueries.ContextQueriesDatabase" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="ContextQueryDatabase">
+        <java classname="org.sag.pminer.phases.contextqueries.ContextQueryDatabase" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="DebugLogger">
+        <java classname="auth.cstr.vasco.DebugLogger" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="DexSootLoader">
+        <java classname="org.sag.pminer.sootinit.DexSootLoader" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx2048m"/>
+            <arg line="&quot;C:\\DocumentsExt\\Shared\\working\\archive&quot; &quot;C:\\DocumentsExt\\Shared\\working\\jimple&quot;"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="EntryPointsDatabase">
+        <java classname="org.sag.pminer.phases.entrypoints.EntryPointsDatabase" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="ErrorSConstraintContainer">
+        <java classname="org.sag.pminer.constraintdatabase.constraints.ErrorSConstraintContainer" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="EvilStubsList">
+        <java classname="org.sag.common.tools.EvilStubsList" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="ExcludedElementsDatabase">
+        <java classname="org.sag.pminer.phases.excludedelements.ExcludedElementsDatabase" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="FileHelpers">
+        <java classname="org.sag.common.io.FileHelpers" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="GenerateBinderGroups">
+        <java classname="org.sag.pminer.phases.bindergroups.GenerateBinderGroups" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="HashSetWithGet">
+        <java classname="org.sag.common.tools.HashSetWithGet" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="MapOfMapEntryDataConverter">
+        <java classname="org.sag.xstream.xstreamconverters.MapOfMapEntryDataConverter" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="Method">
+        <java classname="pminer.shared.entrypoints.Method" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="NativeWrappersDatabase">
+        <java classname="org.sag.pminer.phases.nativewrappers.NativeWrappersDatabase" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="NumberOperations">
+        <java classname="org.sag.common.tools.NumberOperations" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="PMiner">
+        <java classname="org.sag.pminer.run.PMiner" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="PreProcessManager">
+        <java classname="org.sag.pminer.phases.PreProcessManager" failonerror="true" fork="yes">
+            <jvmarg line="-Xms20480m -Xmx20480m -XX:-UseGCOverheadLimit"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPkgExplorer">
+        <java classname="org.sag.pminer.pkgexplorer.RunPkgExplorer" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit -Xloggc:&quot;C:\CS\Documents\Research\EclipseGit\TBVDroid-PolicyGenerator\input\gc.log&quot;"/>
+            <arg line="D:\CS\Documents\Research\EclipseGit\TBVDroid-PolicyGenerator\input\pkgExConfig.txt"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator - 1a">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms20480m -Xmx20480m -XX:-UseGCOverheadLimit"/>
+            <arg line="-m -i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-5.1.1_r1\AOSP -o C:\DocumentsExt\OutputGit\tbvdroid-debugoutput\output\debug --cfg --cgMethod --cgClass --cgClassLimit 4 --cgMethodLimit 4 --dataStorageDump --cgInac --jimpleDump --cgThrowSE -b --useNativeMethodsAsSeeds --useControlPredicates --setFullMethodSignatures --removeLoops --noRecursion --enableMinerDebug --minerDebugKeepOnlyErrors -p names=GeneralAnalysis,ConsistencyAnalysisPerService,ConsistencyAnalysisAcrossService"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator - 1b Only Stubs">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms20480m -Xmx20480m -XX:-UseGCOverheadLimit"/>
+            <arg line="-m -i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-5.1.1_r1\AOSP -o C:\DocumentsExt\OutputGit\tbvdroid-debugoutput\output\debug --onlyStubs input\onlyStubs.txt --cfg --cgMethod --cgClass --cgClassLimit 4 --cgMethodLimit 4 --dataStorageDump --cgInac --jimpleDump --cgThrowSE -b --useNativeMethodsAsSeeds --useControlPredicates --setFullMethodSignatures --removeLoops --noRecursion --enableMinerDebug --minerDebugKeepOnlyErrors -p names=GeneralAnalysis,ConsistencyAnalysisPerService,ConsistencyAnalysisAcrossService"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator - 2a Debug">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit"/>
+            <arg line="-m -i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-5.1.1_r1\AOSP -o C:\DocumentsExt\OutputGit\tbvdroid-debugoutput\android-5.1.1_r1 --cfg --cgMethod --cgClass --cgClassLimit 4 --cgMethodLimit 4 --dataStorageDump --cgInac --jimpleDump --cgThrowSE"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator - 2b Debug Only Stubs">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit"/>
+            <arg line="-m -i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-5.1.1_r1\AOSP -o C:\DocumentsExt\OutputGit\tbvdroid-debugoutput\android-5.1.1_r1 --onlyStubs input\onlyStubs.txt --cfg --cgMethod --cgClass --cgClassLimit 4 --cgMethodLimit 4 --dataStorageDump --cgInac --jimpleDump --cgThrowSE"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator 5.1.1 AM">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms20480m -Xmx20480m -XX:-UseGCOverheadLimit -Xloggc:&quot;C:\DocumentsExt\OutputGit\tbvdroid-debugoutput\gc.log&quot;"/>
+            <arg line="-m -i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-5.1.1_r1\AOSP -o C:\DocumentsExt\OutputGit\tbvdroid-debugoutput\android-5.1.1_r1\activity_manager --onlyStubs input\onlyStubs_AM.txt -b --useNativeMethodsAsSeeds --useControlPredicates --setFullMethodSignatures --removeLoops --enableMinerDebug --minerDebugKeepOnlyErrors --jimpleDump -p names=GeneralAnalysis,ConsistencyAnalysisPerService,ConsistencyAnalysisAcrossService"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator Backwards 4.0.4">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit -Xloggc:&quot;C:\CS\Documents\Research\EclipseGit\TBVDroid-PolicyGenerator\output\gc-2.log&quot;"/>
+            <arg line="-i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-4.0.4_r2.1\AOSP -o C:\DocumentsExt\OutputGit\tbvdroid-debugoutput\output --onlyStubs input\onlyStubs.txt --dataStorageDump -b --useControlPredicates --suppressBackwardsDebugOutput"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator Dump only">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit -Xloggc:&quot;C:\CS\Documents\Research\EclipseGit\TBVDroid-PolicyGenerator\output\gc-2.log&quot;"/>
+            <arg line="-i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-4.4.2\AOSP -o D:\DocumentsExt\OutputGit\tbvdroid-debugoutput\output --onlyStubs input\onlyStubs.txt --dataStorageDump"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator jimple only">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit -Xloggc:&quot;C:\CS\Documents\Research\EclipseGit\TBVDroid-PolicyGenerator\input\gc.log&quot;"/>
+            <arg line="-m -i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-5.1.1_r1\AOSP -o C:\DocumentsExt\OutputGit\tbvdroid-debugoutput\android-5.1.1_r1 --onlyStubs input\onlyStubs.txt --jimpleDump"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator Method only">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit -Xloggc:&quot;C:\CS\Documents\Research\EclipseGit\TBVDroid-PolicyGenerator\input\gc.log&quot;"/>
+            <arg line="-i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-4.4.2\AOSP -o D:\DocumentsExt\OutputGit\tbvdroid-debugoutput\output --onlyStubs input\onlyStubs.txt --cgMethod --cgMethodLimit 6"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator NoDebug">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit -Xloggc:&quot;C:\CS\Documents\Research\EclipseGit\TBVDroid-PolicyGenerator\input\gc.log&quot;"/>
+            <arg line="-i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-4.4.2\AOSP -o D:\DocumentsExt\OutputGit\tbvdroid-debugoutput\output --onlyStubs input\onlyStubs.txt"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator Only Dump">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit -Xloggc:&quot;C:\CS\Documents\Research\EclipseGit\TBVDroid-PolicyGenerator\input\gc.log&quot;"/>
+            <arg line="-i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-4.4.2\AOSP -o D:\DocumentsExt\OutputGit\tbvdroid-debugoutput\output --onlyStubs input\onlyStubs.txt --dataStorageDump"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="RunPolicyGenerator Only Method">
+        <java classname="pminer.policygenerator.run.RunPolicyGenerator" failonerror="true" fork="yes">
+            <jvmarg line="-Xms8192m -Xmx8192m -XX:-UseGCOverheadLimit -Xloggc:&quot;C:\CS\Documents\Research\EclipseGit\TBVDroid-PolicyGenerator\output\gc-2.log&quot;"/>
+            <arg line="-i C:\CS\Documents\Research\EclipseGit\TBVDroid-input\android-4.4.2\AOSP -o C:\DocumentsExt\OutputGit\tbvdroid-debugoutput\output --onlyStubs input\onlyStubs.txt --cgMethod --cgMethodLimit 6 --dataStorageDump"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="SimpleArchiver">
+        <java classname="org.sag.common.io.archiver.SimpleArchiver" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="SimpleCollectionConverter">
+        <java classname="org.sag.xstream.xstreamconverters.SimpleCollectionConverter" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="Tester">
+        <java classname="pminer.policygenerator.run.Tester" failonerror="true" fork="yes">
+            <arg line="-p names=phase1,phase2,phase3,phase4 ins=file,,file, options=something,se;;;"/>
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="TestMain">
+        <java classname="pminer.policygenerator.impl.classlists.TestMain" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="TestZ3">
+        <java classname="auth.cstr.TestZ3" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="Trie">
+        <java classname="pminer.shared.trie.Trie" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+    <target name="XmlToHtml">
+        <java classname="org.sag.common.xmltohtml.XmlToHtml" failonerror="true" fork="yes">
+            <classpath refid="TBVDroid-PolicyGenerator.classpath"/>
+        </java>
+    </target>
+</project>

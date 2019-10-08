@@ -1,0 +1,24 @@
+name: ACMiner
+data-accessor: org.sag.acminer.ACMinerDataAccessor
+phases: [JimpleJar, EntryPoints, BinderGroups, BinderServices, VariedAnalysis, ExcludedElements, CallGraph, VariedCallGraphAnalysis, AccessControlMarker, ControlPredicateMarker, DefUseGraph, DefUseGraphDumpBeforeFilter, ControlPredicateFilter, DefUseGraphDumpAfterFilter, DefUseGraphMod, ACMinerDebug, ACMiner]
+options:
+  default:
+    ACMiner: [enable, 'true']
+  PreCallGraph:
+    ExcludedElements: [enable, 'true']
+  DefUseGraphDump:
+    DefUseGraphDumpBeforeFilter: [enable, 'true']
+    DefUseGraphDumpAfterFilter: [enable, 'true']
+  DebugWithAllOption:
+    ACMinerDebug: [enable, 'true', ALL, 'true']
+  AllDebugOptions:
+    DefUseGraphDumpBeforeFilter: [enable, 'true']
+    DefUseGraphDumpAfterFilter: [enable, 'true']
+    ACMinerDebug: [enable, 'true', ALL, 'true']
+    ControlPredicateMarker: [EnableDebug, 'true']
+    ControlPredicateFilter: [EnableDebug, 'true']
+    ACMiner: [EnableDebug, 'true']
+  VariedAnalysis:
+    VariedAnalysis: [enable, 'true']
+  VariedCallGraphAnalysis:
+    VariedCallGraphAnalysis: [enable, 'true']

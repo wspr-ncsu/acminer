@@ -1,0 +1,4 @@
+[subtree "tools/vdexExtractor"]
+	url = vdexExtractor
+	path = tools/vdexExtractor
+	branch = master

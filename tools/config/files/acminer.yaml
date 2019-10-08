@@ -1,0 +1,109 @@
+acminer-dir: [work-dir, acminer]
+
+# getInput_RegisteredServicesTempFile
+acminer_registered-services-temp-file: [acminer-dir, registered_services_temp.txt]
+# getInput_EntryPointsDBFile
+acminer_entry-points-db-file: [acminer-dir, entry_points_db.xml]
+# getInput_BinderGroupsDBFile
+acminer_binder-groups-db-file: [acminer-dir, binder_groups_db.xml]
+# getInput_BinderServicesDBFile
+acminer_binder-services-db-file: [acminer-dir, binder_services_db.xml]
+# getInput_ControlPredicatesDBFile
+acminer_control-predicates-db-file: [acminer-dir, control_predicates_db.xml]
+# getInput_ControlPredicatesFilteredDBFile
+acminer_control-predicates-filtered-db-file: [acminer-dir, control_predicates_filtered_db.xml]
+# getInput_ContextQueriesDBFile
+acminer_context-queries-db-file: [acminer-dir, context_queries_db.xml]
+# getInput_ThrowSEDBFile
+acminer_throw-security-exceptions-db-file: [acminer-dir, throw_security_exceptions_db.xml]
+# getInput_EntryPointEdgessDBFile
+acminer_entry-point-edges-db-file: [acminer-dir, entry_point_edges_db.xml]
+# getInput_ControlPredicateFilterDBFile
+acminer_control-predicate-filter-db-file: [acminer-dir, control_predicate_filter_db.xml]
+# getInput_ExcludedElementsDBFile
+acminer_excluded-elements-db-file: [acminer-dir, excluded_elements_db.xml]
+# getInput_ExcludedElementsDBTXTFile
+acminer_excluded-elements-db-txt-file: [acminer-dir, excluded_elements_db.txt]
+# getInput_ContextQueriesDescriptorDBFile
+acminer_context-queries-descriptor-db-file: [acminer-dir, context_queries_descriptor_db.xml]
+# getInput_DefUseGraphDir
+acminer_defusegraph-dir: [acminer-dir, defusegraph]
+# getInput_DefUseGraphDBFile
+acminer_defusegraph_db-file: [acminer_defusegraph-dir, _def_use_graph_db.xml]
+# getInput_DefUseGraphModDir
+acminer_defusegraphmod-dir: [acminer-dir, defusegraphmod]
+# getInput_DefUseGraphModDBFile
+acminer_defusegraphmod_db-file: [acminer_defusegraphmod-dir, _def_use_graph_db.xml]
+# getInput_ACMinerDBDir
+acminer_acminer-dir: [acminer-dir, acminer]
+# getInput_ACMinerDBFile
+acminer_acminer_db-file: [acminer_acminer-dir, _acminer_db_.xml]
+# FileHelpers.getPath(pathSettings.getRootDirectoryPath(), "commongroups.txt") used by ACMinerDebug
+acminer_commongroups-file: [acminer-dir, commongroups.txt]
+# FileHelpers.getPath(pathSettings.getRootDirectoryPath(), "subgraphgroups.txt") used by ACMinerDebug
+acminer_subgraphgroups-file: [acminer-dir, subgraphgroups.txt]
+# FileHelpers.getPath(pathSettings.getRootDirectoryPath(), "pathstomethods.txt") used by ACMinerDebug
+acminer_pathstomethods-file: [acminer-dir, pathstomethods.txt]
+# FileHelpers.getPath(pathSettings.getRootDirectoryPath(), "sinks.txt") used by VariedCallGraphAnalysis
+acminer_sinks-file: [acminer-dir, sinks.txt]
+# FileHelpers.getPath(pathSettings.getRootDirectoryPath(), "onlystubs.txt")
+acminer_onlystubs-file: [acminer-dir, onlystubs.txt]
+# FileHelpers.getPath(pathSettings.getRootDirectoryPath(), "onlyclasses.txt")
+acminer_onlyclasses-file: [acminer-dir, onlyclasses.txt]
+
+# getInput_ACMinerDir - to house the csv and related files
+debug_acminer-dump-dir: [debug-dir, acminer_dump]
+# getInput_ACMinerGraphDir
+debug_acminer-graph-dir: [debug-dir, acminer_graph]
+# getInput_DefUseGraphBeforeFilterDir
+debug_defusegraph-before-filter-dir: [debug-dir, defusegraph_before_filter]
+# getInput_DefUseGraphBeforeFilterDir(), "_file_hash_list_db.xml"
+debug_defusegraph-before-filter_db-file: [debug_defusegraph-before-filter-dir, _file_hash_list_db.xml]
+# getInput_DefUseGraphAfterFilterDir
+debug_defusegraph-after-filter-dir: [debug-dir, defusegraph_after_filter]
+# PMinerFilePaths.v().getInput_DefUseGraphAfterFilterDir(), "_file_hash_list_db.xml"
+debug_defusegraph-after-filter_db-file: [debug_defusegraph-after-filter-dir, _file_hash_list_db.xml]
+# getOutput_Debug_ConstraintMinerDir
+debug_constraint-miner-dir: [debug-dir, constraint_miner]
+# getOutput_Debug_ControlPredicateMarkerDir
+debug_control-predicate-marker-dir: [debug-dir, control_predicate_marker]
+# getOutput_Debug_ACMinerDir
+debug_acminer-dir: [debug-dir, acminer_debug]
+# getOutput_Debug_ControlPredicateFilterDir
+debug_control-predicate-filter-dir: [debug-dir, control_predicate_filter]
+# getOutput_Debug_ConstraintDumpDir
+debug_constraint-dump-dir: [debug-dir, constraint_dump]
+# getOutput_Debug_CfgDir
+debug_cfg-dir: [debug-dir, cfg]
+# getOutput_Debug_CgMethodDir
+debug_cg-method-dir: [debug-dir, cg_method]
+# getOutput_Debug_CgThrowSEDir
+debug_cg-throw-security-exception-dir: [debug-dir, cg_throw_security_exception]
+# getOutput_Debug_CgClassDir
+debug_cg-class-dir: [debug-dir, cg_class]
+# getOutput_Debug_CgMethodLimitDir
+debug_cg-method-limit-dir: [debug-dir, cg_method_limit]
+# getOutput_Debug_CgClassLimitDir
+debug_cg-class-limit-dir: [debug-dir, cg_class_limit]
+# getOutput_Debug_JimpleDumpDir
+debug_jimple-dump-dir: [debug-dir, jimple_dump]
+# getOutput_Debug_CgInacDir
+debug_cg-inac-dir: [debug-dir, cg_inac]
+# getOutput_Debug_CgSubGraphDataDir
+debug_cg-subgraph-data-dir: [debug-dir, cg_subgraph_data]
+# getOutput_Debug_DataDumpsDir
+debug_data-dumps-dir: [debug-dir, data_dumps]
+# getOutput_Debug_CommonSubgraphsDir
+debug_common-subgraphs-dir: [debug-dir, common_subgraphs]
+# getOutput_Debug_SubgraphCountDir
+debug_subgraph-count-dir: [debug-dir, subgraph_count]
+# getOutput_Debug_PathsDir
+debug_paths-dir: [debug-dir, paths]
+# getOutput_Debug_CQSubGraphDir
+debug_cq-subgraph-dir: [debug-dir, cq_subgraph]
+# getOutput_Debug_PathsToMethodsDir
+debug_paths-to-methods-dir: [debug-dir, paths_to_methods]
+# getOutput_VariedCGAnalysis_ReachingDir
+debug_reaching-dir: [debug-dir, reaching]
+# FileHelpers.getPath(PMinerFilePaths.v().getInputDir(),"native_methods_dump.txt")
+debug_native-methods-dump-file: [debug-dir, native_methods_dump.txt]

@@ -1,0 +1,159 @@
+-
+  name: EntryPoints
+  handler: org.sag.acminer.phases.entrypoints.EntryPointsHandler
+  dependency-handlers: JimpleJar
+  root-path: acminer-dir
+  out-paths: acminer_entry-points-db-file
+  dependency-paths: [lookup-output-paths: JimpleJar]
+  other-paths: null
+-
+  name: BinderGroups
+  handler: org.sag.acminer.phases.bindergroups.BinderGroupsHandler
+  dependency-handlers: EntryPoints
+  root-path: acminer-dir
+  out-paths: acminer_binder-groups-db-file
+  dependency-paths: [lookup-dependency-paths: EntryPoints, lookup-output-paths: EntryPoints]
+  other-paths: null
+-
+  name: BinderServices
+  handler: org.sag.acminer.phases.binderservices.BinderServicesHandler
+  dependency-handlers: BinderGroups
+  root-path: acminer-dir
+  out-paths: acminer_binder-services-db-file
+  dependency-paths: [lookup-dependency-paths: BinderGroups, lookup-output-paths: BinderGroups]
+  other-paths: null
+-
+  name: VariedAnalysis
+  handler: org.sag.acminer.phases.variedanalysis.VariedAnalysisHandler
+  dependency-handlers: JimpleJar
+  root-path: acminer-dir
+  out-paths: null
+  dependency-paths: [lookup-output-paths: JimpleJar]
+  other-paths: null
+  options:
+    DumpNative: [boolean, 'Dumps all the native methods to a file.']
+-
+  name: ExcludedElements
+  handler: org.sag.acminer.phases.excludedelements.ExcludedElementsHandler
+  dependency-handlers: BinderServices
+  root-path: acminer-dir
+  out-paths: acminer_excluded-elements-db-file
+  dependency-paths: [lookup-dependency-paths: BinderServices, lookup-output-paths: BinderServices, acminer_excluded-elements-db-txt-file]
+  other-paths: null
+-
+  name: CallGraph
+  handler: org.sag.acminer.phases.callgraph.CallGraphHandler
+  dependency-handlers: ExcludedElements
+  root-path: acminer-dir
+  out-paths: null
+  dependency-paths: [lookup-dependency-paths: ExcludedElements, lookup-output-paths: ExcludedElements]
+  other-paths: null
+-
+  name: VariedCallGraphAnalysis
+  handler: org.sag.acminer.phases.variedcallgraphanalysis.VariedCallGraphAnalysisHandler
+  dependency-handlers: CallGraph
+  root-path: acminer-dir
+  out-paths: null
+  dependency-paths: [lookup-dependency-paths: CallGraph, lookup-output-paths: CallGraph]
+  other-paths: null
+  options:
+    ReachingGraphs: [path, acminer_sinks-file, 'Read in the given file containing method sinks and output reaching graphs for all entry points that call these methods. The graphs contain only paths to these sinks and are in the .tgf format.']
+-
+  name: AccessControlMarker
+  handler: org.sag.acminer.phases.accesscontrolmarker.AccessControlMarkerHandler
+  dependency-handlers: CallGraph
+  root-path: acminer-dir
+  out-paths: [acminer_context-queries-db-file, acminer_throw-security-exceptions-db-file, acminer_entry-point-edges-db-file]
+  dependency-paths: [lookup-dependency-paths: CallGraph, lookup-output-paths: CallGraph, acminer_context-queries-descriptor-db-file]
+  other-paths: null
+-
+  name: ControlPredicateMarker
+  handler: org.sag.acminer.phases.controlpredicatemarker.ControlPredicateMarkerHandler
+  dependency-handlers: AccessControlMarker
+  root-path: acminer-dir
+  out-paths: acminer_control-predicates-db-file
+  dependency-paths: [lookup-dependency-paths: AccessControlMarker, lookup-output-paths: AccessControlMarker]
+  other-paths: null
+  options:
+    EnableDebug: [boolean, 'Enables the dumping of debugging information for the phase ControlPredicateMarker to log files.']
+    DebugToConsole: [boolean, 'If debugging information is enabled for the phase ControlPredicateMarker this option causes the information to be output to the terminal as well as files.']
+-
+  name: DefUseGraph
+  handler: org.sag.acminer.phases.defusegraph.DefUseGraphHandler
+  dependency-handlers: ControlPredicateMarker
+  root-path: acminer-dir
+  out-paths: acminer_defusegraph_db-file
+  dependency-paths: [lookup-dependency-paths: ControlPredicateMarker, lookup-output-paths: ControlPredicateMarker]
+  other-paths: null
+-
+  name: DefUseGraphDumpBeforeFilter
+  handler: org.sag.acminer.phases.defusegraphdump.DefUseGraphDumpBeforeFilterHandler
+  dependency-handlers: DefUseGraph
+  root-path: debug-dir
+  out-paths: debug_defusegraph-before-filter_db-file
+  dependency-paths: [lookup-dependency-paths: DefUseGraph, lookup-output-paths: DefUseGraph]
+  other-paths: null
+-
+  name: ControlPredicateFilter
+  handler: org.sag.acminer.phases.controlpredicatefilter.ControlPredicateFilterHandler
+  dependency-handlers: DefUseGraph
+  root-path: acminer-dir
+  out-paths: acminer_control-predicates-filtered-db-file
+  dependency-paths: [lookup-dependency-paths: DefUseGraph, lookup-output-paths: DefUseGraph, acminer_control-predicate-filter-db-file]
+  other-paths: [lookup-output-paths: ControlPredicateMarker]
+  options:
+    EnableDebug: [boolean, 'Enables the dumping of debugging information for the phase ControlPredicateFilter to log files.']
+    DebugToConsole: [boolean, 'If debugging information is enabled for the phase ControlPredicateFilter this option causes the information to be output to the terminal as well as files.']
+-
+  name: DefUseGraphDumpAfterFilter
+  handler: org.sag.acminer.phases.defusegraphdump.DefUseGraphDumpAfterFilterHandler
+  dependency-handlers: ControlPredicateFilter
+  root-path: debug-dir
+  out-paths: debug_defusegraph-after-filter_db-file
+  dependency-paths: [lookup-dependency-paths: ControlPredicateFilter, lookup-output-paths: ControlPredicateFilter]
+  other-paths: null
+-
+  name: DefUseGraphMod
+  handler: org.sag.acminer.phases.defusegraphmod.DefUseGraphModHandler
+  dependency-handlers: ControlPredicateFilter
+  root-path: acminer-dir
+  out-paths: acminer_defusegraphmod_db-file
+  dependency-paths: [lookup-dependency-paths: ControlPredicateFilter, lookup-output-paths: ControlPredicateFilter]
+  other-paths: null
+-
+  name: ACMinerDebug
+  handler: org.sag.acminer.phases.acminerdebug.ACMinerDebugHandler
+  dependency-handlers: CallGraph
+  root-path: debug-dir
+  out-paths: null
+  dependency-paths: [lookup-dependency-paths: CallGraph, lookup-output-paths: CallGraph]
+  other-paths: null
+  options: 
+    CFG : [boolean, 'Dumps a control flow graph for any method that contains authorization checks in graphml format.']
+    CGMethod: [boolean, 'Dumps the full method call graph for all entry points in graphml format.']
+    CGMethodLimit: [int, 5, 'Dumps the method call graph for all entry points in graphml format where the depth of the call graph is restricted to the maximum depth provided (default 5).']
+    CGClass: [boolean, 'Dumps a call graph in graphml format of all entry points where the nodes have been simplified to the classes of the methods in the call graph and the edges represent calls to methods in a class.']
+    CGClassLimit: [int, 5, 'Dumps a call graph in graphml format of all entry points where the nodes have been simplified to the classes of the methods in the call graph and the edges represent calls to methods in a class but the depth of the call graph is restricted to the maximum depth provided (default 5).']
+    CGThrowSE: [boolean, 'Dumps a full method call graph for each entry point, highlighting the methods containing authorization checks and their types in graphml format.']
+    CQSubGraph: [boolean, 'Dumps a full method call graph for each context query method in graphml format.']
+    CGSubGraphData: [boolean, 'Dumps to xml file all the methods reachable from each entry point and all methods reachable from those methods. This is basically a collapsed representation for the entry points call graph if traversed using bfs where each method is visited only the first time it is encountered. A number of simple text representations of the collapsed call graph are also output.']
+    CommonSubgraphs: [path, acminer_commongroups-file, 'For each group of entry points provided as input, dumps the entry points in the group which contain one or more equal subgraphs in thier call graph, collapsed representations of the subgraphs using generated bfs, and a graphml representation of each common subgraph. If no input file is provided it looks for an input file at commongroups.txt in the acminer directory. If no input file is found then this is not run.']
+    SubgraphCount: [path, acminer_subgraphgroups-file, 'For each group of entry points provided as input, outputs a call graph for all entry points in the group where common sub graphs are highlighted by there root method and the number of common methods contained within the sub graph. If no input file is provided it looks for an input file at subgraphgroups.txt in the acminer directory. If no input file is found then this is not run.']
+    Paths: [boolean, 'For each entry point, generate a list of possible paths in the call graph from the entry point to all end points (i.e. methods with no outgoing edges in the call graph). The paths generated represent only the first path encountered to a end point and do not include all paths in the call graph.']
+    PathsToMethods: [path, acminer_pathstomethods-file, 'For each entry point, generates a call graph in graphml format containing all paths to the given methods. If no input file is provided it looks for an input file at pathstomethods.txt in the acminer directory. If no input file is found then this is not run.']
+    CGInac: [boolean, 'Dumps a text file that highlights invoke statements which could not be resolved a single method in the call graph.']
+    DataDumps: [boolean, 'Dumps to text files statics and text representations of various data bases created in previous phases.']
+    All: [boolean, 'Enables all the above options using the default value for those that require input. If you wish to override the default value for a specific option the it needs to be listed seperatly like normal.']
+-
+  name: ACMiner
+  handler: org.sag.acminer.phases.acminer.ACMinerHandler
+  dependency-handlers: DefUseGraphMod
+  root-path: acminer-dir
+  out-paths: acminer_acminer_db-file
+  dependency-paths: [lookup-dependency-paths: DefUseGraphMod, lookup-output-paths: DefUseGraphMod]
+  other-paths: null
+  options:
+    EnableDebug: [boolean, 'Enables the dumping of debugging information for the phase ACMiner to log files.']
+    DebugToConsole: [boolean, 'If debugging information is enabled for the phase ACMiner this option causes the information to be output to the terminal as well as files.']
+    OnlyStubs: [path, acminer_onlystubs-file, 'Limits the ACMiner analysis to only those entry points within the provided stub classes. If no input file is provided it looks for an input file at onlystubs.txt in the acminer directory. If no input file is found then this option is ignored and all entry points are analyized.']
+    OnlyClasses: [path, acminer_onlyclasses-file, 'Limits the ACMiner analysis to only those entry points within the provided classes. If no input file is provided it looks for an input file at onlyclasses.txt in the acminer directory. If no input file is found then this option is ignored and all entry points are analyized.']
