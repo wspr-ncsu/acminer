@@ -71,7 +71,7 @@ deps_download() {
     download_url="L_DEPS_URL_$api_level"
   fi
 
-  wget -O "$out_file" "${!download_url}" || {
+  wget -q -O "$out_file" "${!download_url}" || {
     echo "dependencies download failed"
     abort 1
   }
@@ -201,7 +201,7 @@ do
   outDeodexBase="$deodexed_output/$binName"
   mkdir -p "$outDeodexBase"
 
-  $VDEX_EXTRACTOR_BIN -i "$file" -o "$outDec" --ignore-crc-error &> "$decLog" || {
+  "$VDEX_EXTRACTOR_BIN" -i "$file" -o "$outDec" --ignore-crc-error &> "$decLog" || {
     error "vdexExtractor execution failed"
     cat "$decLog"
     abort 1
@@ -218,7 +218,7 @@ do
     fi
     # If CompactDex files, we need to convert first to standard Dex
     # First detect the API level
-    apiLevel=$($VDEX_EXTRACTOR_BIN --get-api -i "$file" || echo "")
+    apiLevel=$("$VDEX_EXTRACTOR_BIN" --get-api -i "$file" || echo "")
     if ! echo "$apiLevel" | grep -qoE 'API-[0-9]{1,2}'; then
       echo "Invalid Android API level '$apiLevel'"
       abort 1
@@ -230,12 +230,14 @@ do
     cdexConvBin="$TOOL_ROOT/hostTools/$HOST_OS/api-$apiLevel/bin/compact_dex_converter"
 
     # Then convert each CompactDex file
-    cdexFiles=($(find "$outDec" -type f -name "*.cdex"))
-    $cdexConvBin -w "$outDeodexBase" "${cdexFiles[@]}" &> "$convLog" || {
-      error "CompactDex conversation failed for '$file'"
-      cat "$convLog"
-      abort 1
-    }
+	find "$outDec" -type f -name "*.cdex" -print0 |
+	while IFS= read -r -d '' cdexfile; do
+	  "$cdexConvBin" -w "$outDeodexBase" "$cdexfile" &> "$convLog" || {
+        error "CompactDex conversation failed for '$cdexfile'"
+        cat "$convLog"
+        abort 1
+      }
+	done
 
     # Finally change file extension to dex
     find "$outDeodexBase" -type f | while read -r cdexFile

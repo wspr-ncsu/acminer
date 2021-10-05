@@ -1,0 +1,6 @@
+bin/
+bin/vdexExtractor
+tools/
+tools/deodex/
+tools/deodex/constants.sh
+tools/deodex/run.sh
