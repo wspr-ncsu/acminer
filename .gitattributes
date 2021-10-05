@@ -1,0 +1,11 @@
+#
+# https://help.github.com/articles/dealing-with-line-endings/
+#
+# These are explicitly windows files and should use crlf
+*.txt           text eol=lf
+*.log           text eol=lf
+*.cpp           text eol=lf
+*.java          text eol=lf
+*.h             text eol=lf
+*.bat           text eol=crlf
+

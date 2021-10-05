@@ -1,0 +1,5 @@
+gjfr-dir: [work-dir, gjfr]
+# getInput_SystemJavaJarFile
+gjfr_system-java-jar-file: [gjfr-dir, system_java.jar]
+# getInput_SystemJavaXMLFile
+gjfr_system-java-xml-file: [gjfr-dir, system_java.xml]

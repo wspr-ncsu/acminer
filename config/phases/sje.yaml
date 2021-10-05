@@ -1,0 +1,8 @@
+-
+  name: JimpleJar
+  handler: org.sag.sje.phases.jimplejar.JimpleJarHandler
+  dependency-handlers: null
+  root-path: sje-dir
+  out-paths: sje_system-jimple-jar-file
+  dependency-paths: [[work_system-img-zip-file, work_android-info-file], [work_system-class-jar-file]]
+  other-paths: [sje_system-archives-zip-file, sje_system-jimple-framework-only-jar-file, sje_system-jimple-class-conflicts-zip-file, sje_work-dir, work_system-class-jar-file, work_system-img-zip-file, work_android-info-file, sje_system-class-jar-file, sje_framework-pkgs-file]

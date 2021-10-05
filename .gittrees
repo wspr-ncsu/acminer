@@ -1,0 +1,8 @@
+[subtree "tools/vdexExtractor"]
+	url = https://github.com/anestisb/vdexExtractor.git
+	path = tools/vdexExtractor
+	branch = master
+[subtree "tools/extfstools"]
+	url = https://github.com/nlitsme/extfstools.git
+	path = tools/extfstools
+	branch = master

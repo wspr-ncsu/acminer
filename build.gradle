@@ -1,0 +1,99 @@
+apply plugin: 'java'
+
+//sourceCompatibility = 1.8
+//targetCompatibility = 1.8
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+repositories { 
+    mavenCentral() 
+}
+
+dependencies {
+	implementation 'com.google.guava:guava:19.0'
+	implementation 'org.smali:dexlib2:2.4.0'
+	implementation 'org.smali:util:2.4.0'
+	implementation 'org.smali:baksmali:2.4.0'
+	implementation 'org.smali:smali:2.4.0'
+	implementation 'org.bouncycastle:bcprov-jdk15on:1.54'
+	implementation 'xmlpull:xmlpull:1.1.3.1'
+	implementation 'xpp3:xpp3:1.1.4c'
+	implementation 'com.thoughtworks.xstream:xstream:1.4.7'
+	implementation 'org.slf4j:slf4j-api:1.7.18'
+	implementation 'org.slf4j:slf4j-simple:1.7.18'
+	implementation 'org.jsoup:jsoup:1.11.2'
+	implementation 'com.google.doclava:doclava:1.0.6'
+	// This may need to be changed back to jdk-tools.jar if it does not work
+	implementation 'com.github.olivergondza:maven-jdk-tools-wrapper:0.1'
+	implementation 'org.antlr:antlr:3.5.2'
+	implementation 'com.google.jsilver:jsilver:1.0.0'
+	implementation 'org.ccil.cowan.tagsoup:tagsoup:1.2.1'
+	implementation 'org.antlr:antlr-runtime:3.5.2'
+	implementation 'org.json:json:20190722'
+	implementation 'org.snakeyaml:snakeyaml-engine:2.1'
+	implementation 'io.github.classgraph:classgraph:4.8.62'
+	implementation 'org.jboss.forge.roaster:roaster-api:2.21.0.Final'
+	implementation 'org.jboss.forge.roaster:roaster-jdt:2.21.0.Final'
+	implementation 'org.soot-oss:soot:4.1.0'
+
+
+}
+
+task copyTask(dependsOn: processResources, type: Copy) {
+	into "${buildDir}/resources/main/"
+	into('dextra') {
+		from "${projectDir}/tools/dextra"
+		include "dextra"
+		include "dextra.armv7"
+		include "dextra.ELF64"
+	}
+	into('extfstools') {
+		from "${projectDir}/tools/extfstools"
+		include "bin/*"
+	}
+	into('vdexExtractor') {
+		from "${projectDir}/tools/vdexExtractor"
+		include "bin/*"
+		include "paths.txt"
+		include "tools/deodex/run.sh"
+		include "tools/deodex/constants.sh"
+	}
+	into('config') {
+		from "${projectDir}/config"
+	}
+}
+
+task copyDextra(type: Copy) {
+	dependsOn "processResources"
+	from "tools/dextra"
+	into "build/resources/main/dextra/"
+	include "dextra"
+	include "dextra.armv7"
+	include "dextra.ELF64"
+}
+
+task copyExtfstools(type: Copy) {
+	dependsOn "processResources"
+	from "tools/extfstools"
+	into "build/resources/main/extfstools/"
+	include "bin/*"
+}
+
+task copyVdexExtractor(type: Copy) {
+	dependsOn "processResources"
+	from "tools/vdexExtractor"
+	into "build/resources/main/vdexExtractor/"
+	include "bin/*"
+	include "paths.txt"
+	include "tools/deodex/run.sh"
+	include "tools/deodex/constants.sh"
+}
+
+tasks.named("jar") {
+	//dependsOn "copyDextra", "copyExtfstools", "copyVdexExtractor"
+	dependsOn "copyTask"
+}

@@ -1,0 +1,20 @@
+kernel_dump
+
+	URL: https://forum.xda-developers.com/crossdevice-dev/sony/tool-unpack-format-sony-kernel-image-t3530077
+	Run: ./kernel_dump out_dir system.sin
+
+XperiFirm
+	
+	Url: https://forum.xda-developers.com/crossdevice-dev/sony/pc-xperifirm-xperia-firmware-downloader-t2834142
+	Run:
+		Prepare Linux for Mono installation:
+		http://www.mono-project.com/docs/get...install/linux/
+		Enter the following lines once per computer:
+		$ sudo apt-get install mono-complete
+		$ sudo cert-sync /etc/ssl/certs/ca-certificates.crt
+		$ sudo certmgr -ssl -m https://software.sonymobile.com
+		(Enter Y when asked, you should be asked to do so twice)
+		Enter the following line to launch XperiFirm:
+		$ mono XperiFirm.exe
+
+

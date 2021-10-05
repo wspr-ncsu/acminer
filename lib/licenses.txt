@@ -1,0 +1,442 @@
+roaster:
+	License - Eclipse Public License (https://github.com/forge/roaster/blob/master/LICENSE.md)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 2.20.2
+	Why - For extracting java files from the Android repo.
+	Link - https://mvnrepository.com/artifact/org.jboss.forge.roaster/roaster-jdt/2.20.2.Final
+	     - https://mvnrepository.com/artifact/org.jboss.forge.roaster/roaster-api/2.20.2.Final
+	
+jsoup:
+	License - MIT License (https://github.com/jhy/jsoup/blob/master/LICENSE)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 1.11.2
+	Why - For parsing HTML files.
+	Link - https://mvnrepository.com/artifact/org.jsoup/jsoup/1.11.2
+	
+Bouncy Castle (bcprov)
+	License - MIT License (https://www.bouncycastle.org/licence.html)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - jdk15on-154
+	Why - For the generation of file hashes to detect changes in dependency files of files being output and read back in. Used to automatically determine if certain stages of analysis need to be re-run.
+	Link - https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on/1.54
+	
+xstream
+	License - BSD License (http://x-stream.github.io/license.html)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 1.4.7
+	Why - To dump Java objects to XML files and read them back in from XML files.
+	Link - https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream/1.4.7
+	
+XML Pull Parsing (xmlpull)
+	License - (http://www.xmlpull.org/v1/download/unpacked/LICENSE.txt)
+	How it is included - As a Jar file.
+	What is included - API library
+	Language - Java
+	Version - 1.1.3.1
+	Why - API for use with xstream
+	Link - https://mvnrepository.com/artifact/xmlpull/xmlpull/1.1.3.1
+	
+xpp3
+	License - (http://www.extreme.indiana.edu/dist/java-repository/xpp3/licenses/LICENSE.txt)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 1.1.4c
+	Why - Library used with xstream
+	Link - http://www.extreme.indiana.edu/dist/java-repository/xpp3/jars/xpp3_min-1.1.4c.jar
+	
+Simple Logging Facade for Java (SLF4J)
+	License - MIT License (https://www.slf4j.org/license.html)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 1.7.18
+	Why - Logging library
+	Link - https://mvnrepository.com/artifact/org.slf4j/slf4j-simple/1.7.18
+	     - https://mvnrepository.com/artifact/org.slf4j/slf4j-api/1.7.18
+	
+smali, baksmali, dexlib2, and util
+	License - (https://github.com/JesusFreke/smali/blob/master/NOTICE)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 2.2.5
+	Why - The libraries used extract java code from compiled dex code.
+	Link - https://mvnrepository.com/artifact/org.smali/smali/2.2.5
+	     - https://mvnrepository.com/artifact/org.smali/dexlib2/2.2.5
+		 - https://mvnrepository.com/artifact/org.smali/baksmali/2.2.5
+		 - https://mvnrepository.com/artifact/org.smali/util/2.2.5
+
+guava
+	License - Apache License (https://github.com/google/guava/blob/master/COPYING)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 19.0
+	Why - Extensions for standard Java API methods.
+	Link - https://mvnrepository.com/artifact/com.google.guava/guava/19.0
+
+soot
+	License - GNU Lesser General Public License (https://github.com/Sable/soot/blob/master/LICENSE.txt)
+	How it is included - built from source
+	What is included - Full library
+	Language - Java
+	Version - 19.0
+	Why - Extensions for standard Java API methods.
+	Link - needs to be built from our fork to ensure stability
+	
+commons-io
+	License - Apache 2.0 (http://www.apache.org/licenses/)
+	How it is included - Soot dependency
+	What is included - Full library
+	Language - Java
+	Version - 2.6
+	Why - Soot dependency
+	Link - https://mvnrepository.com/artifact/commons-io/commons-io/2.6
+
+asm-debug-all
+	License - BSD (https://asm.ow2.io/license.html)
+	How it is included - Soot dependency
+	What is included - Full library
+	Language - Java
+	Version - 5.2
+	Why - Soot dependency
+	Link - https://mvnrepository.com/artifact/org.ow2.asm/asm-debug-all/5.2
+	
+javassist
+	License - (https://github.com/jboss-javassist/javassist/blob/master/License.html)
+	How it is included - Soot dependency
+	What is included - Full library
+	Language - Java
+	Version - 3.18.2-GA
+	Why - Soot dependency
+	Link - https://mvnrepository.com/artifact/org.javassist/javassist/3.18.2-GA
+	
+ant
+	License - Apache 2.0 (https://www.apache.org/licenses/)
+	How it is included - Soot dependency
+	What is included - Full library
+	Language - Java
+	Version - 1.10.1
+	Why - Soot dependency
+	Link - https://mvnrepository.com/artifact/org.apache.ant/ant/1.10.1
+	
+polyglot
+	License - GNU Lesser General Public License (https://github.com/Sable/polyglot/blob/master/LICENSE)
+	How it is included - Soot dependency
+	What is included - Full library
+	Language - Java
+	Version - 2006
+	Why - Soot dependency
+	Link - https://mvnrepository.com/artifact/ca.mcgill.sable/polyglot/2006
+	
+heros
+	License - GNU Lesser General Public License (https://github.com/Sable/heros/blob/develop/LICENSE.txt)
+	How it is included - Soot dependency
+	What is included - Full library
+	Language - Java
+	Version - 1.0.1
+	Why - Soot dependency
+	Link - https://mvnrepository.com/artifact/de.upb.cs.swt/heros/1.1.0
+	
+jasmin
+	License - GNU Lesser General Public License (https://github.com/Sable/jasmin/blob/master/license.html)
+	How it is included - Soot dependency
+	What is included - Full library
+	Language - Java
+	Version - 3.0.1
+	Why - Soot dependency
+	Link - https://mvnrepository.com/artifact/ca.mcgill.sable/jasmin/3.0.1
+	
+Functional Java
+	License - BSD Clause 3 (https://github.com/functionaljava/functionaljava/blob/series/5.x/etc/LICENCE)
+	How it is included - Soot dependency
+	What is included - Full library
+	Language - Java
+	Version - 4.2
+	Why - Soot dependency
+	Link - https://mvnrepository.com/artifact/org.functionaljava/functionaljava/4.2
+	
+Vdex Extractor
+	License - Apache 2.0 (https://github.com/anestisb/vdexExtractor/blob/master/LICENSE)
+	How it is included - Snapshot of source
+	What is included - Binary and source it was built from
+	Language - C
+	Version - 4.1
+	Why - Optional way to extract dex code from system image
+	Link - https://github.com/anestisb/vdexExtractor
+	
+ProGuard
+	License - GNU General Public License (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+	How it is included - As a Jar file
+	What is included - Full library
+	Language - Java
+	Version - 6
+	Why - Used to reduce build size of ACMiner jars
+	Link - https://sourceforge.net/projects/proguard/
+	
+sdat2img
+	License - None
+	How it is included - Python script
+	What is included - Snapshot of repo
+	Language - Python
+	Version - none
+	Why - To convert sparse Android images to ext4 images
+	Link - https://github.com/xpirt/sdat2img
+
+simg2img
+	License - (https://github.com/anestisb/android-simg2img/blob/master/LICENSE)
+	How it is included - Snapshot of source
+	What is included - Source code
+	Language - C
+	Version - none
+	Why - To convert sparse Android images to ext4 images
+	Link - https://github.com/anestisb/android-simg2img
+	
+LG KDZ Utilities
+	License - GNU GENERAL PUBLIC LICENSE Version 3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
+	How it is included - Snapshot of source
+	What is included - Source code
+	Language - Python
+	Version - none
+	Why - Extract LG system images
+	Link - https://github.com/thecubed/kdzutils
+	
+Moto Sparse Converter
+	License - None
+	How it is included - Snapshot of source
+	What is included - Binary and source it was built from
+	Language - C#
+	Version - none
+	Why - Extract Moto images
+	Link - https://forum.xda-developers.com/showthread.php?t=2749797
+	
+Any Xperia Dumper
+	License - None
+	How it is included - Snapshot of source
+	What is included - Binary and source it was built from
+	Language - C
+	Version - none
+	Why - Extract Sony images
+	Link - https://forum.xda-developers.com/crossdevice-dev/sony/tool-unpack-format-sony-kernel-image-t3530077
+	
+Xperi Firm
+	License - None
+	How it is included - Binary
+	What is included - Binary
+	Language - Executable
+	Version - none
+	Why - Download Sony images
+	Link - https://forum.xda-developers.com/crossdevice-dev/sony/pc-xperifirm-xperia-firmware-downloader-t2834142
+	
+HTC RUU Decrypt Tool
+	License - None
+	How it is included - Snapshot of source
+	What is included - Binary and source it was built from
+	Language - C++
+	Version - none
+	Why - Extract HTC images
+	Link - https://github.com/nkk71/HTC-RUU-Decrypt-Tool
+	
+List::MoreUtils
+	License - Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+	How it is included - Perl module import
+	What is included - Perl module import
+	Language - Perl
+	Version - current
+	Why - Library in a script
+	Link - https://metacpan.org/pod/List::MoreUtils
+	
+Clone
+	License - Free to redistribute or modify (https://metacpan.org/pod/Clone)
+	How it is included - Perl module import
+	What is included - Perl module import
+	Language - Perl
+	Version - current
+	Why - Library in a script
+	Link - https://metacpan.org/pod/Clone
+	
+IO::Prompt::Hooked
+	License - Free to redistribute or modify (https://metacpan.org/pod/IO::Prompt::Hooked)
+	How it is included - Perl module import
+	What is included - Perl module import
+	Language - Perl
+	Version - current
+	Why - Library in a script
+	Link - https://metacpan.org/pod/IO::Prompt::Hooked
+	
+Text::SimpleTable::AutoWidth
+	License - Free to redistribute or modify (https://metacpan.org/pod/Text::SimpleTable::AutoWidth)
+	How it is included - Perl module import
+	What is included - Perl module import
+	Language - Perl
+	Version - current
+	Why - Library in a script
+	Link - https://metacpan.org/pod/Text::SimpleTable::AutoWidth
+	
+Android::ADB
+	License - Free to redistribute or modify (https://metacpan.org/pod/Android::ADB)
+	How it is included - Perl module import
+	What is included - Perl module import
+	Language - Perl
+	Version - current
+	Why - Library in a script
+	Link - https://metacpan.org/pod/Android::ADB
+	
+Archive::Zip
+	License - Free to redistribute or modify (https://metacpan.org/pod/Archive::Zip)
+	How it is included - Perl module import
+	What is included - Perl module import
+	Language - Perl
+	Version - current
+	Why - Library in a script
+	Link - https://metacpan.org/pod/Archive::Zip
+
+File::Which
+	License - Free to redistribute or modify (https://metacpan.org/pod/File::Which)
+	How it is included - Perl module import
+	What is included - Perl module import
+	Language - Perl
+	Version - current
+	Why - Library in a script
+	Link - https://metacpan.org/pod/File::Which
+	
+File::Slurp
+	License - Free to redistribute or modify (https://metacpan.org/pod/File::Slurp)
+	How it is included - Perl module import
+	What is included - Perl module import
+	Language - Perl
+	Version - current
+	Why - Library in a script
+	Link - https://metacpan.org/pod/File::Slurp
+	
+File::Remove
+	License - Free to redistribute or modify (https://metacpan.org/pod/File::Remove)
+	How it is included - Perl module import
+	What is included - Perl module import
+	Language - Perl
+	Version - current
+	Why - Library in a script
+	Link - https://metacpan.org/pod/File::Remove
+
+ZipFS
+	License - GNU General Public License version 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+	How it is included - Source code included in main tool
+	What is included - the source code of the library from jdk 9
+	Language - Java
+	Version - none
+	Why - Allow the processing of zip files without extracting them. This was added in java version 9 but ACMiner was written using 7 and 8 before 9 was ready to be distributed so I imported the library from some of its beta code.
+	Link - none
+
+PyFIM
+	License - MIT license (http://www.borgelt.net/license.html)
+	How it is included - Python imported package
+	What is included - Python imported package
+	Language - Python
+	Version - current
+	Why - Association rule mining
+	Link - http://www.borgelt.net
+	
+Lxml
+	License - BSD license (https://github.com/lxml/lxml/blob/master/LICENSES.txt)
+	How it is included - Python imported package
+	What is included - Python imported package
+	Language - Python
+	Version - current
+	Why - Association rule mining
+	Link - https://github.com/lxml/lxml
+
+Numpy 
+	License - BSD license (http://www.numpy.org/license.html#license)
+	How it is included - Python imported package
+	What is included - Python imported package
+	Language - Python
+	Version - current
+	Why - Association rule mining
+	Link - http://www.numpy.org
+	
+doclava:
+	License - Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 1.0.6
+	Why - To parse the api definition files in aosp. This is a android modified version of doclava included in aosp.
+	Link - https://android.googlesource.com/platform/external/doclava
+	
+antlr:
+	License - BSD license (https://www.antlr.org/license.html)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 3.5.2
+	Why - Required by doclava
+	Link - https://mvnrepository.com/artifact/org.antlr/antlr/3.5.2
+	
+antlr-runtime:
+	License - BSD license (https://www.antlr.org/license.html)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 3.5.2
+	Why - Required by doclava
+	Link - https://mvnrepository.com/artifact/org.antlr/antlr-runtime/3.5.2
+
+jsilver:
+	License - Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 1.0.0
+	Why - Required by doclava
+	Link - https://mvnrepository.com/artifact/com.google.jsilver/jsilver/1.0.0
+	
+tagsoup:
+	License - Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 1.2.1
+	Why - Required by doclava
+	Link - https://mvnrepository.com/artifact/org.ccil.cowan.tagsoup/tagsoup/1.2.1
+	
+jdk-tools:
+	License - GNU General Public License version 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - jdk-1.8.0_212
+	Why - Required by doclava
+	Link - From OpenJDK 1.8.0_212
+	
+snakeyaml-engine:
+	License - Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 2.1
+	Why - For reading YAML files
+	Link - https://mvnrepository.com/artifact/org.snakeyaml/snakeyaml-engine/2.1
+	
+json:
+	License - Custom (https://github.com/stleary/JSON-java/blob/master/LICENSE)
+	How it is included - As a Jar file.
+	What is included - Full library
+	Language - Java
+	Version - 20190722
+	Why - For reading JSON files
+	Link - https://mvnrepository.com/artifact/org.json/json/20190722
+
+Other
+	Standard Java libraries
+	Standard Perl libraries
+	Standard Python libraries
+	
