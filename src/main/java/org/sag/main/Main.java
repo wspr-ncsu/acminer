@@ -34,7 +34,7 @@ public class Main {
 	
 	public int init(String[] args) {
 		try {
-			logger.info("{}: Initilizing with the following arguments: {}",cn,Arrays.toString(args));
+			logger.info("{}: Initializing with the following arguments: {}",cn,Arrays.toString(args));
 			int ret = parseArgs(args);
 			if(ret == 1) {
 				logger.info("{}: Setting up the analysis environment.",cn);
@@ -45,7 +45,7 @@ public class Main {
 			}
 			return ret;
 		} catch(Throwable t) {
-			logger.fatal("{}: Something went wrong when initilizing.\n\n{}",t,cn,helpMsg);
+			logger.fatal("{}: Something went wrong when initializing.\n\n{}",t,cn,helpMsg);
 			return 0;
 		}
 	}
@@ -77,6 +77,8 @@ public class Main {
 							phaseOptions.add(args[i]);
 						}
 						pm.setPhaseOptionsFromInput(phaseOptions);
+						// Decrement by one because the outer loop will increment by one and we want the next index to be the current index
+						i = i - 1;
 					} catch(Throwable t) {
 						logger.fatal("{}: Failed to parse the phase options {}.\n\n{}",t,cn,phaseOptions,helpMsg);
 						return 0;
