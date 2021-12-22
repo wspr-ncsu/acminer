@@ -100,7 +100,7 @@ task copyTask(dependsOn: processResources, type: Copy) {
 }
 
 def getMemoryNeeded() {
-	def avl = org.sag.common.io.FileHelpersShort.getAvailableSystemMemory()
+	def avl = org.sag.Helpers.getAvailableSystemMemory()
 	def gavl = java.lang.Double.valueOf(java.lang.Math.floor(avl / 1073741824)).longValue() - 2
 	if(gavl <= 8) {
 		return 8
@@ -127,7 +127,7 @@ def resolveWorkingDir(args) {
 			ret = defaultWorkingDir
 		}
 	}
-	return org.sag.common.io.FileHelpersShort.getPath(ret)
+	return org.sag.Helpers.getPath(ret)
 }
 
 def ensureWorkingDirIncluded(args, newArgs, path) {
@@ -228,6 +228,6 @@ task testss(dependsOn: shadowJar, type: JavaExec) {
 		newParms.addAll(parms)
 		setArgs(newParms)
 		println getArgs()
-		println org.sag.common.io.FileHelpersShort.testMemory()
+		println org.sag.Helpers.testMemory()
 	}
 }

@@ -1,4 +1,4 @@
-package org.sag.common.io;
+package org.sag;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -24,7 +24,7 @@ import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.GlobalMemory;
 
-public class FileHelpersShort {
+public class Helpers {
 	
 	public static final Path getPath(String first, String... more){
 		return getNormAndAbsPath(Paths.get(first, more));
