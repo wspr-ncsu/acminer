@@ -1,7 +1,8 @@
-apply plugin: 'java'
-
-//sourceCompatibility = 1.8
-//targetCompatibility = 1.8
+plugins {
+  id 'com.github.johnrengelman.shadow' version '7.1.0'
+  id 'java'
+  id 'org.barfuin.gradle.taskinfo' version '1.3.1'
+}
 
 java {
     toolchain {
@@ -39,8 +40,39 @@ dependencies {
 	implementation 'org.jboss.forge.roaster:roaster-api:2.21.0.Final'
 	implementation 'org.jboss.forge.roaster:roaster-jdt:2.21.0.Final'
 	implementation 'org.soot-oss:soot:4.1.0'
+}
 
+//Reproducible builds
+tasks.withType(AbstractArchiveTask) {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
 
+//Default memory for running javaexec tasks
+tasks.withType(JavaExec) {
+	def mem = getMemoryNeeded()
+    jvmArgs = ['-Xms8g', '-Xmx' + mem + 'g']
+}
+
+classes {
+	dependsOn "copyTask"
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'org.sag.main.Main'
+	}
+}
+
+shadowJar {
+	mergeServiceFiles()
+	mergeGroovyExtensionModules()
+	archiveClassifier.set('All')
+	archiveVersion.set('')
+}
+
+assemble {
+	dependsOn "shadowJar"
 }
 
 task copyTask(dependsOn: processResources, type: Copy) {
@@ -67,33 +99,135 @@ task copyTask(dependsOn: processResources, type: Copy) {
 	}
 }
 
-task copyDextra(type: Copy) {
-	dependsOn "processResources"
-	from "tools/dextra"
-	into "build/resources/main/dextra/"
-	include "dextra"
-	include "dextra.armv7"
-	include "dextra.ELF64"
+def getMemoryNeeded() {
+	def avl = org.sag.common.io.FileHelpersShort.getAvailableSystemMemory()
+	def gavl = java.lang.Double.valueOf(java.lang.Math.floor(avl / 1073741824)).longValue() - 2
+	if(gavl <= 8) {
+		return 8
+	}
+	return gavl
 }
 
-task copyExtfstools(type: Copy) {
-	dependsOn "processResources"
-	from "tools/extfstools"
-	into "build/resources/main/extfstools/"
-	include "bin/*"
+def resolveWorkingDir(args) {
+	def defaultWorkingDir = "${projectDir}/working"
+	def ret = null
+	if(args == null || args.size() == 0) {
+		ret = defaultWorkingDir
+	} else {
+		def isNext = false
+		for(String s : args) {
+			if(s.equals("-i")) {
+				isNext = true
+			} else if(isNext) {
+				isNext = false
+				ret = s
+			}
+		}
+		if(ret == null || ret.isEmpty()) {
+			ret = defaultWorkingDir
+		}
+	}
+	return org.sag.common.io.FileHelpersShort.getPath(ret)
 }
 
-task copyVdexExtractor(type: Copy) {
-	dependsOn "processResources"
-	from "tools/vdexExtractor"
-	into "build/resources/main/vdexExtractor/"
-	include "bin/*"
-	include "paths.txt"
-	include "tools/deodex/run.sh"
-	include "tools/deodex/constants.sh"
+def ensureWorkingDirIncluded(args, newArgs, path) {
+	if(args != null && !args.isEmpty()) {
+		def isNext = false
+		for(Iterator it = args.iterator(); it.hasNext();) {
+			String s = it.next()
+			if(s.equals("-i")) {
+				isNext = true
+				it.remove()
+			} else if(isNext) {
+				isNext = false
+				it.remove()
+			}
+		}
+	}
+	newArgs.add("-i")
+	newArgs.add(path.toString())
 }
 
-tasks.named("jar") {
-	//dependsOn "copyDextra", "copyExtfstools", "copyVdexExtractor"
-	dependsOn "copyTask"
+def addArgs(args, newArgs, toAdd) {
+	if(args != null && !args.isEmpty()) {
+		def toRemove = new ArrayList<Integer>()
+		def workingList = new ArrayList<Integer>()
+		def size = toAdd.size()
+		for(int i = 0; i < args.size(); i++) {
+			if(size == workingList.size()) {
+				toRemove.addAll(workingList)
+				workingList = new ArrayList<Integer>()
+			}
+			if(args[i].equals(toAdd.get(workingList.size()))) {
+				workingList.add(i)
+			} else {
+				workingList = new ArrayList<Integer>()
+			}
+		}
+		if(size == workingList.size()) {
+			toRemove.addAll(workingList)
+		}
+		if(!toRemove.isEmpty()) {
+			def removed = 0;
+			for(Integer i : toRemove) {
+				args.remove(((int)i)-removed)
+				removed++
+			}
+		}
+	}
+	newArgs.addAll(toAdd)
+}
+
+task acminer(dependsOn: shadowJar, type: JavaExec) {
+	group = "Run"
+	description = "Test"
+	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
+	
+	doFirst{
+		def parms = getArgs()
+		def newParms = new ArrayList<String>()
+		def workingDir = resolveWorkingDir(parms)
+		def jvmarguments = System.getProperty("jvmargs","")
+		if(jvmarguments != null && !jvmarguments.isEmpty()) {
+			jvmArgs(jvmarguments.split())
+		}
+		ensureWorkingDirIncluded(parms, newParms, workingDir)
+		def toAdd = new ArrayList<String>()
+		toAdd.add("--ACMiner")
+		addArgs(parms, newParms, toAdd)
+		newParms.addAll(parms)
+		setArgs(newParms)
+	}
+}
+
+//-Djvmargs='-Xms32g -Xmx32g'
+//gradle acminer --args='-i "bla/moo moo" -h --ACMiner'
+task testss(dependsOn: shadowJar, type: JavaExec) {
+	group = "Run"
+	description = "Test"
+	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
+	
+	doFirst{
+		def parms = getArgs()
+		def newParms = new ArrayList<String>()
+		def workingDir = resolveWorkingDir(parms)
+		ensureWorkingDirIncluded(parms, newParms, workingDir)
+		println parms
+		println newParms
+		def toAdd = new ArrayList<String>()
+		toAdd.add("-p")
+		toAdd.add("ACMiner")
+		toAdd.add("ACMinerDebug")
+		toAdd.add("enable:true,Paths:true,CGMethod:true,CGMethodLimit:5")
+		addArgs(parms, newParms, toAdd)
+		println parms
+		println newParms
+		toAdd = new ArrayList<String>()
+		toAdd.add("-h")
+		addArgs(parms, newParms, toAdd)
+		newParms.addAll(parms)
+		setArgs(newParms)
+		println getArgs()
+		println org.sag.common.io.FileHelpersShort.testMemory()
+	}
 }

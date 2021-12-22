@@ -1,0 +1,23 @@
+plugins {
+  id 'java'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+repositories { 
+    mavenCentral() 
+}
+
+dependencies {
+	implementation 'com.github.oshi:oshi-core:5.8.6'
+}
+
+//Reproducible builds
+tasks.withType(AbstractArchiveTask) {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}

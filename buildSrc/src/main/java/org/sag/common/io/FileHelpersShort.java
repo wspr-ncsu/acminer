@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Stream;
+import oshi.SystemInfo;
+import oshi.hardware.HardwareAbstractionLayer;
+import oshi.hardware.GlobalMemory;
 
 public class FileHelpersShort {
 	
@@ -137,6 +140,25 @@ public class FileHelpersShort {
 	
 	public static final boolean checkRWFileExists(Path path){
 		return Files.exists(path) && Files.isRegularFile(path) && Files.isReadable(path) && Files.isWritable(path);
+	}
+	
+	public static final long testMemory() {
+		com.sun.management.OperatingSystemMXBean os = (com.sun.management.OperatingSystemMXBean)java.lang.management.ManagementFactory.getOperatingSystemMXBean();
+		return os.getTotalPhysicalMemorySize();
+	}
+	
+	public static final long getTotalSystemMemory() {
+		SystemInfo si = new SystemInfo();
+		HardwareAbstractionLayer hal = si.getHardware();
+		GlobalMemory gmem = hal.getMemory();
+		return gmem.getTotal();
+	}
+	
+	public static final long getAvailableSystemMemory() {
+		SystemInfo si = new SystemInfo();
+		HardwareAbstractionLayer hal = si.getHardware();
+		GlobalMemory gmem = hal.getMemory();
+		return gmem.getAvailable();
 	}
 	
 }
