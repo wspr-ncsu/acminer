@@ -39,7 +39,8 @@ dependencies {
 	implementation 'io.github.classgraph:classgraph:4.8.62'
 	implementation 'org.jboss.forge.roaster:roaster-api:2.21.0.Final'
 	implementation 'org.jboss.forge.roaster:roaster-jdt:2.21.0.Final'
-	implementation 'org.soot-oss:soot:4.1.0'
+	//implementation 'org.soot-oss:soot:4.1.0'
+	implementation 'org.soot-oss:soot:4.2.1'
 }
 
 //Reproducible builds
