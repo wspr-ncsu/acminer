@@ -14,17 +14,36 @@ repositories {
     mavenCentral() 
 }
 
+configurations {
+    priority
+    sourceSets.main.compileClasspath = sourceSets.main.compileClasspath + configurations.priority
+    sourceSets.main.runtimeClasspath = sourceSets.main.runtimeClasspath + configurations.priority
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == 'xmlpull' && details.requested.name == 'xmlpull' && details.requested.version == '1.1.3.4d_b4_min') {
+            details.useVersion '1.1.3.1'
+        }
+        if (details.requested.group == 'com.google.guava' && details.requested.name == 'guava' && details.requested.version == '27.1-android') {
+            details.useVersion 'guava:19.0'
+        }
+    }
+}
+
 dependencies {
 	implementation 'com.google.guava:guava:19.0'
-	implementation 'org.smali:dexlib2:2.4.0'
-	implementation 'org.smali:util:2.4.0'
+	//implementation 'org.smali:dexlib2:2.4.0'
+	//implementation 'org.smali:util:2.4.0'
 	implementation 'org.smali:baksmali:2.4.0'
 	implementation 'org.smali:smali:2.4.0'
 	implementation 'org.bouncycastle:bcprov-jdk15on:1.54'
-	implementation 'xmlpull:xmlpull:1.1.3.1'
-	implementation 'xpp3:xpp3:1.1.4c'
+	//implementation 'xmlpull:xmlpull:1.1.3.1'
+	//implementation 'xmlpull:xmlpull:1.1.3.4d_b4_min'
+	//implementation 'xpp3:xpp3:1.1.4c'
+	//implementation 'com.thoughtworks.xstream:xstream:1.4.9'
 	implementation 'com.thoughtworks.xstream:xstream:1.4.7'
-	implementation 'org.slf4j:slf4j-api:1.7.18'
+	//implementation 'org.slf4j:slf4j-api:1.7.18'
 	implementation 'org.slf4j:slf4j-simple:1.7.18'
 	implementation 'org.jsoup:jsoup:1.11.2'
 	implementation 'com.google.doclava:doclava:1.0.6'
@@ -37,10 +56,25 @@ dependencies {
 	implementation 'org.json:json:20190722'
 	implementation 'org.snakeyaml:snakeyaml-engine:2.1'
 	implementation 'io.github.classgraph:classgraph:4.8.62'
-	implementation 'org.jboss.forge.roaster:roaster-api:2.21.0.Final'
+	//implementation 'org.jboss.forge.roaster:roaster-api:2.21.0.Final'
 	implementation 'org.jboss.forge.roaster:roaster-jdt:2.21.0.Final'
 	//implementation 'org.soot-oss:soot:4.1.0'
-	implementation 'org.soot-oss:soot:4.2.1'
+	//implementation 'org.soot-oss:soot:4.2.1'
+	implementation files('lib/sootclasses-trunk.jar')
+	implementation 'commons-io:commons-io:2.6'
+	implementation 'org.ow2.asm:asm:7.1'
+	implementation 'org.ow2.asm:asm-tree:7.1'
+	implementation 'org.ow2.asm:asm-util:7.1'
+	implementation 'org.ow2.asm:asm-commons:7.1'
+	implementation 'de.upb.cs.swt:axml:2.0.0'
+	implementation 'ca.mcgill.sable:polyglot:2006'
+	implementation 'de.upb.cs.swt:heros:1.2.0'
+	implementation 'ca.mcgill.sable:jasmin:3.0.2'
+	implementation 'javax.annotation:javax.annotation-api:1.3.2'
+	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180725.0427'
+	implementation 'org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438'
+	//implementation files('lib/sootclasses-trunk-jar-with-dependencies.jar')
+	//implementation files('lib/heros-0.0.1-SNAPSHOT.jar')
 }
 
 //Reproducible builds
@@ -66,6 +100,7 @@ jar {
 }
 
 shadowJar {
+	println sourceSets.main.runtimeClasspath.asPath
 	mergeServiceFiles()
 	mergeGroovyExtensionModules()
 	archiveClassifier.set('All')
