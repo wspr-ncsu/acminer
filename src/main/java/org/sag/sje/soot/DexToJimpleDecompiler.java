@@ -69,13 +69,14 @@ public class DexToJimpleDecompiler {
 	private List<String> resolvedBootClassPath;
 	private final boolean includeApps;
 	private final boolean dumpClasses;
+	private final boolean classConflicts;
 
 	public DexToJimpleDecompiler(Path pathToInputDir, Path pathToSystemImgZipFile, 
 			Set<? extends ArchiveEntry<? extends DexEntry>> archiveEntries, 
 			Path pathToWorkingDir, Path pathToSystemArchivesZipFile, Path pathToJimpleJar, Path pathToJimpleJarFrameworkOnly, 
 			Path pathToJimpleJarConflicts, Path pathToAndroidInfoFile, Path pathToClassesJar, int defaultApiVersion, int javaVersion,
-			boolean allAppsSameTime, boolean includeApps, boolean dumpClasses, List<String> resolvedBootClassPath, Path pathToFrameworkPkgsOut, 
-			ILogger logger) {
+			boolean allAppsSameTime, boolean includeApps, boolean dumpClasses, boolean classConflicts, List<String> resolvedBootClassPath, 
+			Path pathToFrameworkPkgsOut, ILogger logger) {
 		Objects.requireNonNull(pathToInputDir);
 		Objects.requireNonNull(pathToSystemImgZipFile);
 		Objects.requireNonNull(archiveEntries);
@@ -116,6 +117,7 @@ public class DexToJimpleDecompiler {
 		this.includeApps = includeApps;
 		this.javaVersion = javaVersion;
 		this.dumpClasses = dumpClasses;
+		this.classConflicts = classConflicts;
 	}
 	
 	public boolean run() {
@@ -487,6 +489,8 @@ public class DexToJimpleDecompiler {
 	}
 	
 	private boolean generateConflicts(){
+		if(!classConflicts)
+			return true;
 		logger.info("DexToJimpleDecompiler: Begin outputting conflict information.");
 		
 		//Compute the archive to conflict classes map from the classesToSources map

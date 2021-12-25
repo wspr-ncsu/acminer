@@ -272,4 +272,14 @@ public class JJOptions {
 		this.bootClassPath = bootClassPath;
 	}
 	
+	private boolean classConflicts = false;
+	
+	public boolean getClassConflicts() {
+		return classConflicts;
+	}
+
+	public void enableClassConflicts() {
+		classConflicts = true;
+	}
+	
 }

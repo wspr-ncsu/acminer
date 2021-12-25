@@ -156,7 +156,7 @@ public class JJExtractor {
 				JJOptions.v().getOutput_SystemJimpleFrameworkOnlyJarFile(),JJOptions.v().getOutput_SystemJimpleClassConflictsZipFile(),
 				JJOptions.v().getInput_AndroidInfo(),JJOptions.v().getOutput_SystemClassJarFile(),ai.getApi(),ai.getJavaVersion(),
 				JJOptions.v().getAllAppsSameTime(),JJOptions.v().getIncludeApps(),JJOptions.v().getDumpClasses(),
-				resolvedBootClassPath,JJOptions.v().getOutput_FrameworkPkgsFile(),JJOptions.v().getMainLogger());
+				JJOptions.v().getClassConflicts(),resolvedBootClassPath,JJOptions.v().getOutput_FrameworkPkgsFile(),JJOptions.v().getMainLogger());
 		logger.info("JJExtractor: Successfully initialized the dex to jimple decompiler.");
 		
 		
@@ -221,10 +221,16 @@ public class JJExtractor {
 							break;
 						case "-b":
 							JJOptions.v().setBootClassPath(args[++i]);
+							break;
 						case "-a":
 							JJOptions.v().enableIncludeApps();
+							break;
 						case "-c":
 							JJOptions.v().disableDumpClasses();
+							break;
+						case "-m":
+							JJOptions.v().enableClassConflicts();
+							break;
 						default:
 							throw new RuntimeException("Error: Invalid Input '" + args[i] +"'.");
 					}
