@@ -3,6 +3,7 @@ plugins {
   id 'java'
   id 'org.barfuin.gradle.taskinfo' version '1.3.1'
 }
+import org.gradle.internal.logging.*
 
 java {
     toolchain {
@@ -183,9 +184,55 @@ def addArgs(args, newArgs, toAdd) {
 	newArgs.addAll(toAdd)
 }
 
+task helpDiag(dependsOn: shadowJar, type: JavaExec) {
+	group = "Run"
+	description = "Output the help dialog of the ${rootProject.name}-All.jar. Any other options given will be ignored except jvm arguments given in the following example format -Djvmargs='-Xms32g -Xmx32g'. Note setting the jvm arguments overrides the default jvm arguments, which are '-Xms8g -Xmx(max_free_memory - 2)g', and is not recommended."
+	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
+	
+	doFirst{
+		def newParms = new ArrayList<String>()
+		newParms.add("-h")
+		def jvmarguments = System.getProperty("jvmargs","")
+		if(jvmarguments != null && !jvmarguments.isEmpty()) {
+			jvmArgs(jvmarguments.split())
+		}
+		setArgs(newParms)
+	}
+}
+
 task acminer(dependsOn: shadowJar, type: JavaExec) {
 	group = "Run"
-	description = "Test"
+	description = "Run the ${rootProject.name}-All.jar with the default options for a run of the phase group ACMiner. The options may be customized by giving the jar arguments through gradle using the following example format --args='-i \"path/to/working dir\"', where everything inside the '' of --args= would be formatted exactly as if it was passed directly to the jar. You may also customize the jvm arguments using the following example format -Djvmargs='-Xms32g -Xmx32g'. Note setting the jvm arguments overrides the default jvm arguments, which are '-Xms8g -Xmx(max_free_memory - 2)g', and is not recommended."
+	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
+	
+	doFirst{
+		def parms = getArgs()
+		def newParms = new ArrayList<String>()
+		def workingDir = resolveWorkingDir(parms)
+		
+		def currentDate = new Date().format('yyyy-MM-dd_HH-mm-ss')
+		def loggingDirectory = new File("${workingDir}/log/__full__")
+		loggingDirectory.mkdirs();
+		def out = new FileOutputStream(new File(loggingDirectory, "${currentDate}.log"))
+		standardOutput = new org.apache.tools.ant.util.TeeOutputStream(out, System.out);
+		errorOutput = new org.apache.tools.ant.util.TeeOutputStream(out, System.err);
+		
+		def jvmarguments = System.getProperty("jvmargs","")
+		if(jvmarguments != null && !jvmarguments.isEmpty()) {
+			jvmArgs(jvmarguments.split())
+		}
+		ensureWorkingDirIncluded(parms, newParms, workingDir)
+		def toAdd = new ArrayList<String>()
+		toAdd.add("--ACMiner")
+		addArgs(parms, newParms, toAdd)
+		newParms.addAll(parms)
+		setArgs(newParms)
+	}
+}
+
+task acminerDebugLite(dependsOn: shadowJar, type: JavaExec) {
+	group = "Run"
+	description = "TODO"
 	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
 	
 	doFirst{
@@ -198,7 +245,54 @@ task acminer(dependsOn: shadowJar, type: JavaExec) {
 		}
 		ensureWorkingDirIncluded(parms, newParms, workingDir)
 		def toAdd = new ArrayList<String>()
-		toAdd.add("--ACMiner")
+		toAdd.add("-p")
+		toAdd.add("ACMiner")
+		toAdd.add("ACMinerDebug")
+		toAdd.add("enable:true,Paths:true,CGMethod:true,CGMethodLimit:5")
+		addArgs(parms, newParms, toAdd)
+		newParms.addAll(parms)
+		setArgs(newParms)
+	}
+}
+
+task acminerDebug(dependsOn: shadowJar, type: JavaExec) {
+	group = "Run"
+	description = "TODO"
+	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
+	
+	doFirst{
+		def parms = getArgs()
+		def newParms = new ArrayList<String>()
+		def workingDir = resolveWorkingDir(parms)
+		def jvmarguments = System.getProperty("jvmargs","")
+		if(jvmarguments != null && !jvmarguments.isEmpty()) {
+			jvmArgs(jvmarguments.split())
+		}
+		ensureWorkingDirIncluded(parms, newParms, workingDir)
+		def toAdd = new ArrayList<String>()
+		toAdd.add("--ACMinerDebugWithAllOption")
+		addArgs(parms, newParms, toAdd)
+		newParms.addAll(parms)
+		setArgs(newParms)
+	}
+}
+
+task acminerDebugAll(dependsOn: shadowJar, type: JavaExec) {
+	group = "Run"
+	description = "TODO"
+	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
+	
+	doFirst{
+		def parms = getArgs()
+		def newParms = new ArrayList<String>()
+		def workingDir = resolveWorkingDir(parms)
+		def jvmarguments = System.getProperty("jvmargs","")
+		if(jvmarguments != null && !jvmarguments.isEmpty()) {
+			jvmArgs(jvmarguments.split())
+		}
+		ensureWorkingDirIncluded(parms, newParms, workingDir)
+		def toAdd = new ArrayList<String>()
+		toAdd.add("--ACMinerAllDebugOptions")
 		addArgs(parms, newParms, toAdd)
 		newParms.addAll(parms)
 		setArgs(newParms)
