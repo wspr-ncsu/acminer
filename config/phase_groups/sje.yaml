@@ -1,6 +1,8 @@
 name: SJE
 data-accessor: org.sag.main.BaseDataAccessor
 phases: [JimpleJar]
-options:
+quick-options:
   default:
-    JimpleJar: [enable, 'true']
+    description: "SJE1"
+    enabled-phases:
+      JimpleJar: [enable, 'true']

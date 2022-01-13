@@ -1,24 +1,38 @@
 name: ACMiner
 data-accessor: org.sag.acminer.ACMinerDataAccessor
 phases: [JimpleJar, EntryPoints, BinderGroups, BinderServices, VariedAnalysis, ExcludedElements, CallGraph, VariedCallGraphAnalysis, AccessControlMarker, ControlPredicateMarker, DefUseGraph, DefUseGraphDumpBeforeFilter, ControlPredicateFilter, DefUseGraphDumpAfterFilter, DefUseGraphMod, ACMinerDebug, ACMiner]
-options:
+quick-options:
   default:
-    ACMiner: [enable, 'true']
+    description: "T1"
+    enabled-phases:
+      ACMiner: [enable, 'true']
   PreCallGraph:
-    ExcludedElements: [enable, 'true']
+    description: "T2"
+    enabled-phases:
+      ExcludedElements: [enable, 'true']
   DefUseGraphDump:
-    DefUseGraphDumpBeforeFilter: [enable, 'true']
-    DefUseGraphDumpAfterFilter: [enable, 'true']
+    description: "T3"
+    enabled-phases:
+      DefUseGraphDumpBeforeFilter: [enable, 'true']
+      DefUseGraphDumpAfterFilter: [enable, 'true']
   DebugWithAllOption:
-    ACMinerDebug: [enable, 'true', All, 'true']
+    description: "T4"
+    enabled-phases:
+      ACMinerDebug: [enable, 'true', All, 'true']
   AllDebugOptions:
-    DefUseGraphDumpBeforeFilter: [enable, 'true']
-    DefUseGraphDumpAfterFilter: [enable, 'true']
-    ACMinerDebug: [enable, 'true', All, 'true']
-    ControlPredicateMarker: [EnableDebug, 'true']
-    ControlPredicateFilter: [EnableDebug, 'true']
-    ACMiner: [EnableDebug, 'true']
+    description: "T5"
+    enabled-phases:
+      DefUseGraphDumpBeforeFilter: [enable, 'true']
+      DefUseGraphDumpAfterFilter: [enable, 'true']
+      ACMinerDebug: [enable, 'true', All, 'true']
+      ControlPredicateMarker: [EnableDebug, 'true']
+      ControlPredicateFilter: [EnableDebug, 'true']
+      ACMiner: [EnableDebug, 'true']
   VariedAnalysis:
-    VariedAnalysis: [enable, 'true']
+    description: "T6"
+    enabled-phases:
+      VariedAnalysis: [enable, 'true']
   VariedCallGraphAnalysis:
-    VariedCallGraphAnalysis: [enable, 'true']
+    description: "T7"
+    enabled-phases:
+      VariedCallGraphAnalysis: [enable, 'true']
