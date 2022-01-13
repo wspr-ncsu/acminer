@@ -1,5 +1,6 @@
 -
   name: JimpleJar
+  description: "TODO"
   handler: org.sag.sje.phases.jimplejar.JimpleJarHandler
   dependency-handlers: null
   root-path: sje-dir

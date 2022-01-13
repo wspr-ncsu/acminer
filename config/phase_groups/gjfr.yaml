@@ -1,3 +1,4 @@
 name: GJFR
+description: "TODO"
 data-accessor: org.sag.main.BaseDataAccessor
 phases: [JimpleJar]

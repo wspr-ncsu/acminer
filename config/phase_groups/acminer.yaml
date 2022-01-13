@@ -1,4 +1,5 @@
 name: ACMiner
+description: "TODO"
 data-accessor: org.sag.acminer.ACMinerDataAccessor
 phases: [JimpleJar, EntryPoints, BinderGroups, BinderServices, VariedAnalysis, ExcludedElements, CallGraph, VariedCallGraphAnalysis, AccessControlMarker, ControlPredicateMarker, DefUseGraph, DefUseGraphDumpBeforeFilter, ControlPredicateFilter, DefUseGraphDumpAfterFilter, DefUseGraphMod, ACMinerDebug, ACMiner]
 quick-options:

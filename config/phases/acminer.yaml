@@ -1,5 +1,6 @@
 -
   name: EntryPoints
+  description: "TODO"
   handler: org.sag.acminer.phases.entrypoints.EntryPointsHandler
   dependency-handlers: JimpleJar
   root-path: acminer-dir
@@ -8,6 +9,7 @@
   other-paths: null
 -
   name: BinderGroups
+  description: "TODO"
   handler: org.sag.acminer.phases.bindergroups.BinderGroupsHandler
   dependency-handlers: EntryPoints
   root-path: acminer-dir
@@ -16,6 +18,7 @@
   other-paths: null
 -
   name: BinderServices
+  description: "TODO"
   handler: org.sag.acminer.phases.binderservices.BinderServicesHandler
   dependency-handlers: BinderGroups
   root-path: acminer-dir
@@ -24,6 +27,7 @@
   other-paths: null
 -
   name: VariedAnalysis
+  description: "TODO"
   handler: org.sag.acminer.phases.variedanalysis.VariedAnalysisHandler
   dependency-handlers: JimpleJar
   root-path: acminer-dir
@@ -34,6 +38,7 @@
     DumpNative: [boolean, 'Dumps all the native methods to a file.']
 -
   name: ExcludedElements
+  description: "TODO"
   handler: org.sag.acminer.phases.excludedelements.ExcludedElementsHandler
   dependency-handlers: BinderServices
   root-path: acminer-dir
@@ -42,6 +47,7 @@
   other-paths: null
 -
   name: CallGraph
+  description: "TODO"
   handler: org.sag.acminer.phases.callgraph.CallGraphHandler
   dependency-handlers: ExcludedElements
   root-path: acminer-dir
@@ -50,6 +56,7 @@
   other-paths: null
 -
   name: VariedCallGraphAnalysis
+  description: "TODO"
   handler: org.sag.acminer.phases.variedcallgraphanalysis.VariedCallGraphAnalysisHandler
   dependency-handlers: CallGraph
   root-path: acminer-dir
@@ -61,6 +68,7 @@
     DumpNative: [boolean, 'Dumps the native methods reachable from the entry points to files.']
 -
   name: AccessControlMarker
+  description: "TODO"
   handler: org.sag.acminer.phases.accesscontrolmarker.AccessControlMarkerHandler
   dependency-handlers: CallGraph
   root-path: acminer-dir
@@ -69,6 +77,7 @@
   other-paths: null
 -
   name: ControlPredicateMarker
+  description: "TODO"
   handler: org.sag.acminer.phases.controlpredicatemarker.ControlPredicateMarkerHandler
   dependency-handlers: AccessControlMarker
   root-path: acminer-dir
@@ -80,6 +89,7 @@
     DebugToConsole: [boolean, 'If debugging information is enabled for the phase ControlPredicateMarker this option causes the information to be output to the terminal as well as files.']
 -
   name: DefUseGraph
+  description: "TODO"
   handler: org.sag.acminer.phases.defusegraph.DefUseGraphHandler
   dependency-handlers: ControlPredicateMarker
   root-path: acminer-dir
@@ -88,6 +98,7 @@
   other-paths: null
 -
   name: DefUseGraphDumpBeforeFilter
+  description: "TODO"
   handler: org.sag.acminer.phases.defusegraphdump.DefUseGraphDumpBeforeFilterHandler
   dependency-handlers: DefUseGraph
   root-path: debug-dir
@@ -96,6 +107,7 @@
   other-paths: null
 -
   name: ControlPredicateFilter
+  description: "TODO"
   handler: org.sag.acminer.phases.controlpredicatefilter.ControlPredicateFilterHandler
   dependency-handlers: DefUseGraph
   root-path: acminer-dir
@@ -107,6 +119,7 @@
     DebugToConsole: [boolean, 'If debugging information is enabled for the phase ControlPredicateFilter this option causes the information to be output to the terminal as well as files.']
 -
   name: DefUseGraphDumpAfterFilter
+  description: "TODO"
   handler: org.sag.acminer.phases.defusegraphdump.DefUseGraphDumpAfterFilterHandler
   dependency-handlers: ControlPredicateFilter
   root-path: debug-dir
@@ -115,6 +128,7 @@
   other-paths: null
 -
   name: DefUseGraphMod
+  description: "TODO"
   handler: org.sag.acminer.phases.defusegraphmod.DefUseGraphModHandler
   dependency-handlers: ControlPredicateFilter
   root-path: acminer-dir
@@ -123,6 +137,7 @@
   other-paths: null
 -
   name: ACMinerDebug
+  description: "TODO"
   handler: org.sag.acminer.phases.acminerdebug.ACMinerDebugHandler
   dependency-handlers: CallGraph
   root-path: debug-dir
@@ -147,6 +162,7 @@
     All: [boolean, 'Enables all the above options using the default value for those that require input. If you wish to override the default value for a specific option the it needs to be listed seperatly like normal.']
 -
   name: ACMiner
+  description: "TODO"
   handler: org.sag.acminer.phases.acminer.ACMinerHandler
   dependency-handlers: DefUseGraphMod
   root-path: acminer-dir
@@ -156,5 +172,5 @@
   options:
     EnableDebug: [boolean, 'Enables the dumping of debugging information for the phase ACMiner to log files.']
     DebugToConsole: [boolean, 'If debugging information is enabled for the phase ACMiner this option causes the information to be output to the terminal as well as files.']
-    OnlyStubs: [path, acminer_onlystubs-file, 'Limits the ACMiner analysis to only those entry points within the provided stub classes. If no input file is provided it looks for an input file at onlystubs.txt in the acminer directory. If no input file is found then this option is ignored and all entry points are analyized.']
-    OnlyClasses: [path, acminer_onlyclasses-file, 'Limits the ACMiner analysis to only those entry points within the provided classes. If no input file is provided it looks for an input file at onlyclasses.txt in the acminer directory. If no input file is found then this option is ignored and all entry points are analyized.']
+    OnlyStubs: [path, acminer_onlystubs-file, 'Limits the ACMiner analysis to only those entry points within the provided stub classes. If no input file is provided it looks for an input file at onlystubs.txt in the acminer directory. If no input file is found then this option is ignored and all entry points are analyzed.']
+    OnlyClasses: [path, acminer_onlyclasses-file, 'Limits the ACMiner analysis to only those entry points within the provided classes. If no input file is provided it looks for an input file at onlyclasses.txt in the acminer directory. If no input file is found then this option is ignored and all entry points are analyzed.']
