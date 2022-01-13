@@ -17,12 +17,14 @@ public final class PhaseGroupConfig {
 	private final Class<?> daClass;
 	private volatile Config config;
 	private final List<IQuickOption> options;
+	private final String description;
 	
-	PhaseGroupConfig(String name, List<String> phaseNames, Class<?> daClass, List<IQuickOption> options) {
+	PhaseGroupConfig(String name, List<String> phaseNames, Class<?> daClass, List<IQuickOption> options, String description) {
 		this.name = name;
 		this.phaseNames = phaseNames;
 		this.daClass = daClass;
 		this.options = options;
+		this.description = description;
 	}
 	
 	public void setConfig(Config config) {
@@ -31,6 +33,10 @@ public final class PhaseGroupConfig {
 	
 	public String getPhaseGroupName() {
 		return name;
+	}
+	
+	public String getDescription() {
+		return description;
 	}
 	
 	public List<String> getPhaseNames() {

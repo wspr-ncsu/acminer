@@ -200,6 +200,7 @@ public final class Config {
 				}
 				
 				String name;
+				String description;
 				Class<?> handler;
 				List<String> depHandlerNames;
 				Op rootPath;
@@ -215,6 +216,13 @@ public final class Config {
 					return false;
 				}
 				name = (String)temp;
+				
+				temp = map.get("description");
+				if(temp == null || !(temp instanceof String)) {
+					logger.fatal("{}: No entry or non-string entry for key 'description' in phase file '{}'.",cn,res.getPath());
+					return false;
+				}
+				description = (String)temp;
 				
 				temp = map.get("handler");
 				if(temp == null || !(temp instanceof String)) {
@@ -354,7 +362,7 @@ public final class Config {
 					logger.fatal("{}: Duplicate entries for phase '{}' of file '{}'.",cn,name,res.getPath());
 					return false;
 				}
-				pc = new PhaseConfig(name, handler, depHandlerNames, rootPath, otherPaths, outPaths, depPaths, options);
+				pc = new PhaseConfig(name, description, handler, depHandlerNames, rootPath, otherPaths, outPaths, depPaths, options);
 				nameToPhaseConfig.put(name, pc);
 			}
 		} catch(Throwable t) {
@@ -468,6 +476,7 @@ public final class Config {
 			List<String> phaseNames;
 			Class<?> daClazz;
 			List<IQuickOption> options;
+			String description;
 			
 			Object temp = map.get("data-accessor");
 			if(temp == null || !(temp instanceof String)) {
@@ -514,6 +523,13 @@ public final class Config {
 			}
 			name = (String)temp;
 			
+			temp = map.get("description");
+			if(temp == null || !(temp instanceof String)) {
+				logger.fatal("{}: No entry or non-string entry for key 'description' in phase group file '{}'.",cn,res.getPath());
+				return false;
+			}
+			description = (String)temp;
+			
 			temp = map.get("phases");
 			if(temp == null || !(temp instanceof List || temp instanceof String)) {
 				logger.fatal("{}: No entry or non-string/list entry for key 'phases' in phase group file '{}'.",cn,res.getPath());
@@ -537,7 +553,7 @@ public final class Config {
 				phaseNames = b.build();
 			}
 			
-			temp = map.get("options");
+			temp = map.get("quick-options");
 			if(temp == null) {
 				options = ImmutableList.of();
 			} else if(!(temp instanceof Map)) {
@@ -550,7 +566,17 @@ public final class Config {
 						logger.fatal("{}: Quick option name must be a String in phase group file '{}'.",cn,res.getPath());
 						return false;
 					}
-					Object triggerPairsObj = ((Map<?,?>)temp).get(optNameObj);
+					Object fields = ((Map<?,?>)temp).get(optNameObj);
+					if(fields == null || !(fields instanceof Map)) {
+						logger.fatal("{}: Quick option data fields must be a Map for option '{}' in phase group file '{}'.",cn,optNameObj,res.getPath());
+						return false;
+					}
+					Object desObj = ((Map<?,?>)fields).get("description");
+					if(desObj == null || !(desObj instanceof String)) {
+						logger.fatal("{}: Quick option description must be a String for option '{}' in phase group file '{}'.",cn,optNameObj,res.getPath());
+						return false;
+					}
+					Object triggerPairsObj = ((Map<?,?>)fields).get("enabled-phases");
 					if(triggerPairsObj == null || !(triggerPairsObj instanceof Map)) {
 						logger.fatal("{}: Quick option trigger pairs must be a Map for option '{}' in phase group file '{}'.",cn,optNameObj,res.getPath());
 						return false;
@@ -582,12 +608,12 @@ public final class Config {
 						}
 						phaseNameToTriggers.put((String)phaseNameObj, ImmutableList.copyOf(values));
 					}
-					options.add(new QuickOption((String)optNameObj,phaseNameToTriggers));
+					options.add(new QuickOption((String)optNameObj,phaseNameToTriggers,(String)desObj));
 				}
 				options = ImmutableList.copyOf(options);
 			}
 			
-			nameToPhaseGroupConfig.put(name, new PhaseGroupConfig(name, phaseNames, daClazz, options));
+			nameToPhaseGroupConfig.put(name, new PhaseGroupConfig(name, phaseNames, daClazz, options, description));
 		} catch(Throwable t) {
 			logger.fatal("{}: Something went wrong when loading config file '{}'.",t,cn,res.getPath());
 			return false;

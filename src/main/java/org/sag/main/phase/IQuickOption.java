@@ -7,15 +7,18 @@ public interface IQuickOption {
 	
 	public void set(IPhaseGroup group);
 	public String name(IPhaseGroup group);
+	public String getDescription();
 	
 	public static class QuickOption implements IQuickOption {
 		
 		private final String name;
 		private final Map<String,List<String>> nameToOptionOpts;
+		private final String description;
 		
-		public QuickOption(String name, Map<String,List<String>> nameToOptionOpts) {
+		public QuickOption(String name, Map<String,List<String>> nameToOptionOpts, String description) {
 			this.name = name;
 			this.nameToOptionOpts = nameToOptionOpts;
+			this.description = description;
 		}
 
 		@Override
@@ -35,6 +38,11 @@ public interface IQuickOption {
 			} else {
 				return "--" + group.getName() + name;
 			}
+		}
+		
+		@Override
+		public String getDescription() {
+			return description;
 		}
 		
 	}

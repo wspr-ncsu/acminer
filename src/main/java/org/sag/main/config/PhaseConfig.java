@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableList;
 public final class PhaseConfig {
 	
 	private final String name;
+	private final String description;
 	private final Class<?> handler;
 	private final List<String> depHandlerNames;
 	private final Op rootPath;
@@ -23,9 +24,10 @@ public final class PhaseConfig {
 	private final Map<String,IPhaseOption<?>> options;
 	private volatile Config config;
 	
-	PhaseConfig(String name, Class<?> handler, List<String> depHandlerNames, Op rootPath, Op otherPaths, Op outPaths, Op depPaths, 
+	PhaseConfig(String name, String description, Class<?> handler, List<String> depHandlerNames, Op rootPath, Op otherPaths, Op outPaths, Op depPaths, 
 			Map<String,IPhaseOption<?>> options) {
 		this.name = name;
+		this.description = description;
 		this.handler = handler;
 		this.depHandlerNames = depHandlerNames;
 		this.rootPath = rootPath;
@@ -44,6 +46,10 @@ public final class PhaseConfig {
 	
 	public String getPhaseName() {
 		return name;
+	}
+	
+	public String getDescription() {
+		return description;
 	}
 	
 	public Path getRootPath() {
