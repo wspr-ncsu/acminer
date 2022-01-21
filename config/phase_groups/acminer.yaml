@@ -1,27 +1,27 @@
 name: ACMiner
-description: "TODO"
+description: "The authorization check miner phase group. Use this phase group if a run of ACMiner is desired."
 data-accessor: org.sag.acminer.ACMinerDataAccessor
 phases: [JimpleJar, EntryPoints, BinderGroups, BinderServices, VariedAnalysis, ExcludedElements, CallGraph, VariedCallGraphAnalysis, AccessControlMarker, ControlPredicateMarker, DefUseGraph, DefUseGraphDumpBeforeFilter, ControlPredicateFilter, DefUseGraphDumpAfterFilter, DefUseGraphMod, ACMinerDebug, ACMiner]
 quick-options:
   default:
-    description: "T1"
+    description: "Runs ACMiner with default options for all required phases."
     enabled-phases:
       ACMiner: [enable, 'true']
   PreCallGraph:
-    description: "T2"
+    description: "Runs the phases of ACMiner that do not require a Call Graph to be generated."
     enabled-phases:
       ExcludedElements: [enable, 'true']
   DefUseGraphDump:
-    description: "T3"
+    description: "Enables the phases that dump the def-use graph both before and after the ControlPredicateFilter phase. Note that if this option is used alone, the ControlPredicateFilter phase will be the last of the normal ACMiner phases to be run."
     enabled-phases:
       DefUseGraphDumpBeforeFilter: [enable, 'true']
       DefUseGraphDumpAfterFilter: [enable, 'true']
   DebugWithAllOption:
-    description: "T4"
+    description: "Enables all options on the ACMinerDebug phase. If a option requires a value its default value is used. Note that if this option is used alone, the CallGraph phase will be the last of the normal ACMiner phases to be run."
     enabled-phases:
       ACMinerDebug: [enable, 'true', All, 'true']
   AllDebugOptions:
-    description: "T5"
+    description: "Runs ACMiner with all debugging options or phases enabled. The output from using this option is extremely verbose (large amount of data written to disk) and may result in extreme slow downs."
     enabled-phases:
       DefUseGraphDumpBeforeFilter: [enable, 'true']
       DefUseGraphDumpAfterFilter: [enable, 'true']
@@ -30,10 +30,10 @@ quick-options:
       ControlPredicateFilter: [EnableDebug, 'true']
       ACMiner: [EnableDebug, 'true']
   VariedAnalysis:
-    description: "T6"
+    description: "Enables the VariedAnalysis phase. TODO"
     enabled-phases:
       VariedAnalysis: [enable, 'true']
   VariedCallGraphAnalysis:
-    description: "T7"
+    description: "Enables the VariedCallGraphAnalysis phase. TODO"
     enabled-phases:
       VariedCallGraphAnalysis: [enable, 'true']

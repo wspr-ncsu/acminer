@@ -1,9 +1,9 @@
 name: SJE
-description: "TODO"
+description: "The Soot Jimple Jar Extractor phase group. Allows for the generation of the Jimple Jar without having to run the ACMiner phase group."
 data-accessor: org.sag.main.BaseDataAccessor
 phases: [JimpleJar]
 quick-options:
   default:
-    description: "SJE1"
+    description: "See the JimpleJar phase description."
     enabled-phases:
       JimpleJar: [enable, 'true']

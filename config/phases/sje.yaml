@@ -1,6 +1,6 @@
 -
   name: JimpleJar
-  description: "TODO"
+  description: "From the files of a system image, this phase identifies the java class of the Android system, converts the classes to the Soot's intermediate representation Jimple, and creates a Jimple JAR to house the converted class files. This Jimple JAR contains all the classes analyzed in later analysis phases."
   handler: org.sag.sje.phases.jimplejar.JimpleJarHandler
   dependency-handlers: null
   root-path: sje-dir
