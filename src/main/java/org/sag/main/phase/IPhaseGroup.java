@@ -30,6 +30,8 @@ public interface IPhaseGroup {
 	String getName();
 	
 	void setQuickOption(String name);
+
+	String getHelpDiag(String spacer);
 	
 /*	public static JimpleJarHandler getJimpleJarHandler() {
 		String name = "JimpleJar";

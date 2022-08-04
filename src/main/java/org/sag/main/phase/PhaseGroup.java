@@ -1,12 +1,10 @@
 package org.sag.main.phase;
 
 import java.nio.file.Path;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.sag.common.logging.ILogger;
+import org.sag.common.tools.TextUtils;
 import org.sag.main.AndroidInfo;
 import org.sag.main.IDataAccessor;
 import org.sag.main.config.PhaseGroupConfig;
@@ -57,6 +55,29 @@ public final class PhaseGroup implements IPhaseGroup {
 			if(h.isEnabled()) {
 				inputPathLists.addAll(h.getDependencyFiles());
 				output.addAll(h.getOutputFilePaths());
+			}
+		}
+		for(Path p : output) {
+			inputPathLists.remove(p);
+		}
+		return inputPathLists;
+	}
+
+	public Set<Path> getRequiredInputFilePathsHelpDiag() {
+		if(quickOptions.isEmpty())
+			return new HashSet<Path>();
+		List<String> phaseNames = quickOptions.get("--" + getName()).getAffectedPhaseNames();
+		Set<Path> inputPathLists = new LinkedHashSet<>();
+		Set<Path> output = new LinkedHashSet<>();
+		for(String pn : phaseNames) {
+			IPhaseHandler handler = getHandlerByName(pn);
+			Queue<IPhaseHandler> queue = new ArrayDeque<>();
+			queue.add(handler);
+			while(!queue.isEmpty()) {
+				IPhaseHandler h = queue.poll();
+				inputPathLists.addAll(h.getDependencyFilesForHelpDiag());
+				output.addAll(h.getOutputFilesForHelpDiag());
+				queue.addAll(h.getDepHandlers());
 			}
 		}
 		for(Path p : output) {
@@ -117,7 +138,65 @@ public final class PhaseGroup implements IPhaseGroup {
 			throw new RuntimeException("Error: The quick option '" + name + "' does not exist for phase group '" + name + "'.");
 		option.set(this);
 	}
-	
+
+	public int getLongestOptionName() {
+		int longestOptionName = 0;
+		for(IPhaseHandler handler : handlers) {
+			longestOptionName = Math.max(handler.getLongestOptionName(), longestOptionName);
+		}
+		return longestOptionName;
+	}
+
+	public int getLongestQuickOptionName() {
+		int longestOptionName = 0;
+		for(String name : quickOptions.keySet()) {
+			longestOptionName = Math.max(name.length(), longestOptionName);
+		}
+		return longestOptionName;
+	}
+
+	@Override
+	public String getHelpDiag(String spacer) {
+		int longestHeadName = 13;
+		int headLength = spacer.length() + 2 + longestHeadName + 3;
+		int longestOptionName = getLongestOptionName();
+		int longestQuickOptionName = getLongestQuickOptionName();
+		StringBuilder sb = new StringBuilder();
+
+		int leftHeader = (80-getName().length()-2-spacer.length()) / 2;
+		int rightHeader = 80-getName().length()-2-leftHeader-spacer.length();
+
+		sb.append(spacer).append(TextUtils.leftPad("", leftHeader, '=')).append("[").append(getName())
+				.append("]").append(TextUtils.leftPad("", rightHeader, '='));
+		sb.append("\n").append(spacer).append("  ").append(TextUtils.rightPad("Description", longestHeadName)).append(" - ").append(
+				TextUtils.wrap(pgConfig.getDescription(), 80, "\n", TextUtils.leftPad("", headLength), headLength, true));
+
+		Set<Path> requiredInputFiles = getRequiredInputFilePathsHelpDiag();
+		if(!requiredInputFiles.isEmpty()) {
+			sb.append("\n").append(spacer).append("  ").append(TextUtils.rightPad("Input Files", longestHeadName)).append(" - ").append(
+					TextUtils.wrap(requiredInputFiles.toString().replace("[", "").replace("]", ""), 80, "\n",
+							TextUtils.leftPad("", headLength), headLength, true));
+		}
+
+		if(!quickOptions.isEmpty()) {
+			sb.append("\n").append(spacer).append("  ").append("Quick Options:");
+			for (IQuickOption q : quickOptions.values()) {
+				sb.append("\n").append(q.getHelpDiag(spacer + "    ", longestQuickOptionName, this));
+			}
+		}
+
+		if(!handlers.isEmpty()) {
+			sb.append("\n").append(spacer).append("  ").append("Phases:");
+			String sep = spacer + "    " + TextUtils.rightPad("", 80 - spacer.length() - 4, '-');
+			for (IPhaseHandler handler : handlers) {
+				sb.append("\n").append(sep).append("\n").append(handler.getHelpDiag(spacer + "    ", longestOptionName));
+			}
+			sb.append("\n").append(sep);
+		}
+		sb.append("\n\n").append(spacer).append(TextUtils.leftPad("", 80-spacer.length(), '='));
+		return sb.toString();
+	}
+
 	@Override
 	public boolean run(){
 		if(!isEnabled)

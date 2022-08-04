@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 import org.sag.common.io.FileHelpers;
+import org.sag.common.tools.TextUtils;
 import org.sag.main.config.Config;
 
 public interface IPhaseOption<T> {
@@ -13,11 +14,13 @@ public interface IPhaseOption<T> {
 	String toString();
 	String getName();
 	T getValue();
+	T getValue(boolean forHelpDiag);
 	String getDescription();
 	boolean isEnabled();
 	void toggleIsEnabled();
 	boolean setValueFromInput(String value);
 	void setConfig(Config config);
+	String getHelpDiag(String spacer, int longestName);
 	
 	public static class BaseOption<T> implements IPhaseOption<T> {
 		
@@ -67,6 +70,8 @@ public interface IPhaseOption<T> {
 		public T getValue() {
 			return value;
 		}
+
+		public T getValue(boolean forHelpDiag) { return getValue(); }
 		
 		public String getDescription() {
 			return description;
@@ -97,6 +102,14 @@ public interface IPhaseOption<T> {
 		public void setConfig(Config config) {
 			this.config = config;
 		}
+
+		public String getHelpDiag(String spacer, int longestName) {
+			int headLength = spacer.length() + longestName + 3;
+			return spacer + TextUtils.rightPad(getName(), longestName) + " - " + TextUtils.wrap(getDescription()
+							+ " - (Type = " + this.getClass().getSimpleName().replaceFirst("Option", "")
+							+ ", Default = " + getValue(true) + ")",80, "\n",
+					TextUtils.leftPad("", headLength), headLength, true);
+		}
 		
 	}
 	
@@ -108,6 +121,11 @@ public interface IPhaseOption<T> {
 		
 		public BooleanOption(String name, String description, boolean isEnabled) {
 			super(name, null, description, isEnabled);
+		}
+
+		@Override
+		public Boolean getValue() {
+			return isEnabled();
 		}
 		
 		@Override
@@ -182,10 +200,15 @@ public interface IPhaseOption<T> {
 		
 		@Override
 		public Path getValue() {
+			return getValue(false);
+		}
+
+		@Override
+		public Path getValue(boolean forHelpDiag) {
 			if(value == null && pathKey == null) {
 				return null;
 			} else if(value == null) {
-				return config.getFilePath(pathKey);
+				return config.getFilePath(pathKey, forHelpDiag);
 			} else {
 				return value;
 			}

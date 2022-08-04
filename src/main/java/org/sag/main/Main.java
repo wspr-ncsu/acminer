@@ -2,14 +2,18 @@ package org.sag.main;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.sag.common.io.FileHelpers;
 import org.sag.common.logging.ILogger;
 import org.sag.common.logging.LoggerWrapperSLF4J;
+import org.sag.common.tools.TextUtils;
 import org.sag.main.config.Config;
+import org.sag.main.config.PhaseConfig;
 import org.sag.main.logging.CentralLogger;
+import org.sag.main.phase.IPhaseOption;
 import org.sag.main.phase.PhaseManager;
 
 public class Main {
@@ -205,8 +209,74 @@ public class Main {
 	}
 	
 	// TODO
-	private static final String genHelpMsg() {
-		return "";
+	private final String genHelpMsg() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Usage:    ").append(TextUtils.wrap("[-h|--help] [-i <dir>] [-p <phase_group> <phase_1> " +
+				"<phase_opt_1>:<value_1>,<phase_opt_2>:<value_2>,...,<phase_opt_n>:<value_n> <phase_2> " +
+				"<phase_opt>:<value> ... <phase_n> <phase_opt>:<value>] [--<quick_option>]", 80,
+				"\n", TextUtils.leftPad("", 10), 10, true));
+
+		String jar = "";
+		try {
+			jar = "java -jar " + Paths.get(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getFileName();
+		} catch(Throwable throwable) {
+			jar = "java -jar <jar>";
+		}
+		sb.append("\n\nExamples: ").append(TextUtils.wrap("[<jar> -h], [<jar> --ACMiner], [<jar> -p ACMiner ACMinerDebug enable:true,Paths:true,CGMethod:true,CGMethodLimit:5], [<jar> --ACMinerDebugWithAllOption]".replace("<jar>", jar),
+				80, "\n", TextUtils.leftPad("", 10), 10, true));
+
+		sb.append("\n\nOptions:  ");
+		sb.append("\n  ").append(TextUtils.rightPad("-h|--help", 20)).append(" - ").append(TextUtils.wrap(
+				"Display this help message.", 80, "\n", TextUtils.leftPad("", 25),
+				25, true));
+		sb.append("\n  ").append(TextUtils.rightPad("-i <dir>", 20)).append(" - ").append(TextUtils.wrap(
+				"The path to the working directory. This directory should contain the input files for " +
+						"whatever phases are enabled and the files should be in the appropriate directories. See the descriptions of " +
+						"the phases below for specific file locations relative to this supplied working directory." +
+						"This directory will also be used to write output files as indicated in the phase " +
+						"descriptions below.", 80, "\n", TextUtils.leftPad("", 25),
+				25, true));
+		sb.append("\n  ").append(TextUtils.rightPad("-p <pg> <p> <po>:<v>", 20)).append(" - ").append(TextUtils.wrap(
+				"Set the phase options for the phase groups that will run. The format of this is follows after the " +
+						"indicator -p. 1) The <phase_group> (<pg>) specifies the phase group of the phases and " +
+						"phase options. Phases may be used by multiple phase groups with different options in the same " +
+						"run. 2) The <phase> (<p>) indicates the phase that the options are for. A phase identifier" +
+						" is always followed by 3) a list of comma separated <phase_option> (<po>) and <value> (<v>)" +
+						" pairs for the proceeding phase identifier. Each phase option and value pair is separated by" +
+						" a colon. There can be as many phase option and value pairs in the comma separated list as needed" +
+						" so long as they are for the proceeding phase identifier. The comma separated list of phase" +
+						" options and value pairs should contain no spaces unless it is in the value field. Spaces in " +
+						"the value field must be quoted. Multiple phase and phase option list pairs may be provided so" +
+						" long as they are for the proceeding phase group. For a description of the phase groups," +
+						" their phases, and their phase options see below.", 80, "\n",
+				TextUtils.leftPad("", 25), 25, true));
+		sb.append("\n  ").append(TextUtils.rightPad("--<quick_option>", 20)).append(" - ").append(TextUtils.wrap(
+				"A means of quickly specifying commonly used phase options for a specific phase group. A quick " +
+						"option id always begins with the phase group it is associated with followed by a unique " +
+						"identifier that describes its purpose. Every phase group has at least one quick option (i.e. " +
+						"the default) that is equal to the name of the phase group. This default is a quick way of specifying " +
+						"that a complete run of the all phases in the phase group should be performed sans any " +
+						"debugging phases or debugging phase options.", 80, "\n",
+				TextUtils.leftPad("", 25), 25, true));
+
+		sb.append("\n\nNote:     ").append(TextUtils.wrap("Enabling a phase in a phase group will automatically enable all " +
+						"other phases in that group that the phase depends on. There is no need for the user to " +
+						"individually enable each phase that needs to run. Simply enabling the last phase a user wishes to" +
+						" run will enable all other required phases. The phases in each phase group listed below are " +
+						"listed according to hierarchy (i.e. run order from first to last) and also indicate the phase or phases they " +
+						"immediately depend on. For example, enabling the ACMiner phase of the ACMiner phase group " +
+						"will enable all other phases listed above it sans any debugging phases.", 80,
+				"\n", TextUtils.leftPad("", 10), 10, true));
+
+		sb.append("\n\nNote:     ").append(TextUtils.wrap("The input files listed at the beginning of each " +
+						"phase group are the minimum files a user must provide to be able to perform a full run " +
+						"of the phase group. A full run is defined here as the the phases enabled by the default " +
+						"quick option of a phase group (i.e. --ACMiner for the phase group ACMiner).", 80,
+				"\n", TextUtils.leftPad("", 10), 10, true));
+
+		sb.append("\n\n").append(pm.getHelpDiag(""));
+
+		return sb.toString();
 	}
 	
 	/*private static final String errmsg = 

@@ -1,4 +1,4 @@
 name: GJFR
-description: "TODO"
+description: "This is a placeholder phase group for code that has not been transferred over to the phase group system. It currently does nothing."
 data-accessor: org.sag.main.BaseDataAccessor
 phases: [JimpleJar]

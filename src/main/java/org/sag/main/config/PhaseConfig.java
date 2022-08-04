@@ -53,19 +53,31 @@ public final class PhaseConfig {
 	}
 	
 	public Path getRootPath() {
-		return rootPath.resolve(config).get(0);
+		return rootPath.resolve(config, false).get(0);
 	}
 	
 	public List<Path> getDependencyPaths() {
-		return depPaths.resolve(config);
+		return depPaths.resolve(config, false);
+	}
+
+	public List<Path> getDependencyPathsForHelpDiag() {
+		return depPaths.resolve(config, true);
 	}
 	
 	public List<Path> getOutputPaths() {
-		return outPaths.resolve(config);
+		return outPaths.resolve(config, false);
+	}
+
+	public List<Path> getOutputPathsForHelpDiag() {
+		return outPaths.resolve(config, true);
 	}
 	
 	public List<Path> getOtherPaths() {
-		return otherPaths.resolve(config);
+		return otherPaths.resolve(config, false);
+	}
+
+	public List<Path> getOtherPathsforHelpDiag() {
+		return otherPaths.resolve(config, true);
 	}
 	
 	public List<String> getDependencyHandlerNames() {
@@ -99,7 +111,7 @@ public final class PhaseConfig {
 	
 	
 	interface Op {
-		List<Path> resolve(Config config);
+		List<Path> resolve(Config config, boolean forHelpDiag);
 		String toString();
 	}
 	
@@ -111,9 +123,23 @@ public final class PhaseConfig {
 			this.ops = ops;
 		}
 		
-		public List<Path> resolve(Config config) {
+		public List<Path> resolve(Config config, boolean forHelpDiag) {
+			boolean first = true;
+			List<Path> firstOp = null;
 			for(AndOp op : ops) {
-				List<Path> cur = op.resolve(config);
+				List<Path> cur = op.resolve(config, forHelpDiag);
+				if(first) {
+					first = false;
+					firstOp = cur;
+				}
+				// In an or situation where this is for the help dialog, just return the first group
+				// There has only ever been one group with a or in the dependency paths the first
+				// possibility is all we ever use
+				if(forHelpDiag)
+					break;
+				// Try all options and if non-completly exist then just assume the first (i.e. our)
+				// default is the correct one. This will error later on when the paths are missing
+				// with a more meangingful message than can be produced here.
 				boolean allExist = true;
 				for(Path p : cur) {
 					if(!FileHelpers.checkRWFileExists(p)) {
@@ -124,7 +150,7 @@ public final class PhaseConfig {
 				if(allExist)
 					return cur;
 			}
-			throw new RuntimeException("Error: No path groups are viable for op '" + toString() + "'");
+			return firstOp;
 		}
 		
 		@Override
@@ -151,10 +177,10 @@ public final class PhaseConfig {
 			this.ops = ops;
 		}
 		
-		public List<Path> resolve(Config config) {
+		public List<Path> resolve(Config config, boolean forHelpDiag) {
 			List<Path> ret = new ArrayList<>();
 			for(Op op : ops) {
-				List<Path> cur = op.resolve(config);
+				List<Path> cur = op.resolve(config, forHelpDiag);
 				for(Path p : cur) {
 					if(!ret.contains(p))
 						ret.add(p);
@@ -187,8 +213,8 @@ public final class PhaseConfig {
 			this.phaseName = phaseName;
 		}
 		
-		public List<Path> resolve(Config config) {
-			return config.getPhaseConfig(phaseName).otherPaths.resolve(config);
+		public List<Path> resolve(Config config, boolean forHelpDiag) {
+			return config.getPhaseConfig(phaseName).otherPaths.resolve(config, forHelpDiag);
 		}
 		
 		@Override
@@ -206,8 +232,8 @@ public final class PhaseConfig {
 			this.phaseName = phaseName;
 		}
 		
-		public List<Path> resolve(Config config) {
-			return config.getPhaseConfig(phaseName).depPaths.resolve(config);
+		public List<Path> resolve(Config config, boolean forHelpDiag) {
+			return config.getPhaseConfig(phaseName).depPaths.resolve(config, forHelpDiag);
 		}
 		
 		@Override
@@ -225,8 +251,8 @@ public final class PhaseConfig {
 			this.phaseName = phaseName;
 		}
 		
-		public List<Path> resolve(Config config) {
-			return config.getPhaseConfig(phaseName).outPaths.resolve(config);
+		public List<Path> resolve(Config config, boolean forHelpDiag) {
+			return config.getPhaseConfig(phaseName).outPaths.resolve(config, forHelpDiag);
 		}
 		
 		@Override
@@ -244,8 +270,8 @@ public final class PhaseConfig {
 			this.phaseName = phaseName;
 		}
 		
-		public List<Path> resolve(Config config) {
-			return config.getPhaseConfig(phaseName).rootPath.resolve(config);
+		public List<Path> resolve(Config config, boolean forHelpDiag) {
+			return config.getPhaseConfig(phaseName).rootPath.resolve(config, forHelpDiag);
 		}
 		
 		@Override
@@ -263,8 +289,8 @@ public final class PhaseConfig {
 			this.pathKey = pathKey;
 		}
 		
-		public List<Path> resolve(Config config) {
-			return ImmutableList.of(config.getFilePath(pathKey));
+		public List<Path> resolve(Config config, boolean forHelpDiag) {
+			return ImmutableList.of(config.getFilePath(pathKey, forHelpDiag));
 		}
 		
 		@Override

@@ -42,5 +42,15 @@ public interface IPhaseHandler {
 	public boolean isEnabled();
 	
 	public boolean isForcedRun();
+
+	public int getLongestOptionName();
+
+	public String getHelpDiag(String spacer, int longestOptionName);
+
+	public List<Path> getOutputFilesForHelpDiag();
+
+	public List<Path> getDependencyFilesForHelpDiag();
+
+	public List<IPhaseHandler> getDepHandlers();
 	
 }

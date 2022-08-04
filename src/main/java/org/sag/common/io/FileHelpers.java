@@ -63,6 +63,10 @@ public class FileHelpers {
 			throw new IllegalArgumentException("A path is required.");
 		return path.toAbsolutePath().normalize().toAbsolutePath();
 	}
+
+	public static final Path getSimplePath(String first, String... more) {
+		return Paths.get(first, more);
+	}
 	
 	/** Returns 1 is the path is a directory, 0 if the path is a file, and throws a
 	 * IOException if the path does not exist, is not read and writable, or is not a file

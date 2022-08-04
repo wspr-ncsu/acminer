@@ -5,11 +5,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.sag.common.io.FileHash;
 import org.sag.common.io.FileHashList;
 import org.sag.common.io.FileHelpers;
 import org.sag.common.logging.ILogger;
 import org.sag.common.logging.LoggerWrapperSLF4J;
+import org.sag.common.tools.TextUtils;
 import org.sag.main.AndroidInfo;
 import org.sag.main.IDataAccessor;
 import org.sag.main.config.PhaseConfig;
@@ -85,6 +87,62 @@ public abstract class AbstractPhaseHandler implements IPhaseHandler {
 			initInner();
 		}
 	}
+
+	@Override
+	public List<IPhaseHandler> getDepHandlers() {
+		return depPhases == null || depPhases.isEmpty() ? ImmutableList.of() : ImmutableList.copyOf(depPhases);
+	}
+
+	@Override
+	public int getLongestOptionName() {
+		int longestName = 0;
+		for(IPhaseOption<?> option : options) {
+			longestName = Math.max(option.getName().length(), longestName);
+		}
+		return longestName;
+	}
+
+	@Override
+	public String getHelpDiag(String spacer, int longestOptionName) {
+		int longestHeadName = 17;
+		int headLength = spacer.length() + 2 + longestHeadName + 3;
+		List<String> dependencies = pc.getDependencyHandlerNames();
+		List<Path> inputFiles = pc.getDependencyPathsForHelpDiag();
+		List<Path> outputFiles = pc.getOutputPathsForHelpDiag();
+		List<Path> otherFiles = pc.getOtherPathsforHelpDiag();
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(spacer).append(TextUtils.wrap("[" + getName() + "] - " + pc.getDescription(), 80, "\n", spacer, spacer.length(), true));
+
+		if(!dependencies.isEmpty()) {
+			sb.append("\n").append(spacer).append("  ").append(TextUtils.rightPad("Dependency Phases", longestHeadName)).append(" - ").append(
+					TextUtils.wrap(dependencies.toString().replace("[", "").replace("]", ""), 80, "\n",
+							TextUtils.leftPad("", headLength), headLength, true));
+		}
+		if(!inputFiles.isEmpty()) {
+			sb.append("\n").append(spacer).append("  ").append(TextUtils.rightPad("Input Files", longestHeadName)).append(" - ").append(
+					TextUtils.wrap(inputFiles.toString().replace("[", "").replace("]", ""), 80, "\n",
+							TextUtils.leftPad("", headLength), headLength, true));
+		}
+		if(!outputFiles.isEmpty()) {
+			sb.append("\n").append(spacer).append("  ").append(TextUtils.rightPad("Output Files", longestHeadName)).append(" - ").append(
+					TextUtils.wrap(outputFiles.toString().replace("[", "").replace("]", ""), 80, "\n",
+							TextUtils.leftPad("", headLength), headLength, true));
+		}
+		if(!otherFiles.isEmpty()) {
+			sb.append("\n").append(spacer).append("  ").append(TextUtils.rightPad("Additional Paths", longestHeadName)).append(" - ").append(
+					TextUtils.wrap(otherFiles.toString().replace("[", "").replace("]", ""), 80, "\n",
+							TextUtils.leftPad("", headLength), headLength, true));
+		}
+		if(!options.isEmpty()) {
+			sb.append("\n").append(spacer).append("  ").append("Phase Options:");
+			for (IPhaseOption<?> option : options) {
+				sb.append("\n").append(option.getHelpDiag(spacer + "    ", longestOptionName));
+			}
+		}
+
+		return sb.toString();
+	}
 	
 	public String getName() {
 		return pc.getPhaseName();
@@ -104,6 +162,10 @@ public abstract class AbstractPhaseHandler implements IPhaseHandler {
 	public List<Path> getOutputFilePaths() {
 		return outFilePaths;
 	}
+
+	public List<Path> getOutputFilesForHelpDiag() {
+		return pc.getOutputPathsForHelpDiag();
+	}
 	
 	public List<Path> getInAndOutPaths(Path... paths) {
 		return ImmutableList.<Path>builder().addAll(dependencyFilePaths).addAll(outFilePaths).add(paths).build();
@@ -111,6 +173,10 @@ public abstract class AbstractPhaseHandler implements IPhaseHandler {
 	
 	public List<Path> getDependencyFiles() {
 		return dependencyFilePaths;
+	}
+
+	public List<Path> getDependencyFilesForHelpDiag() {
+		return pc.getDependencyPathsForHelpDiag();
 	}
 	
 	public List<Path> getOtherFiles() {

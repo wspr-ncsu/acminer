@@ -469,9 +469,6 @@ public class TextUtils {
 	 * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
 	 * @param values  the optional values for the formatted exception message, null array not recommended
 	 * @throws IllegalArgumentException if expression is {@code false}
-	 * @see #isTrue(boolean)
-	 * @see #isTrue(boolean, String, long)
-	 * @see #isTrue(boolean, String, double)
 	 */
 	public static void isTrue(final boolean expression, final String message, final Object... values) {
 		if (!expression) {
@@ -1235,7 +1232,7 @@ public class TextUtils {
 	 * @return a line with newlines inserted, {@code null} if null input
 	 */
 	public static String wrap(final String str, final int wrapLength) {
-		return wrap(str, wrapLength, null, false);
+		return wrap(str, wrapLength, null, null, 0, false);
 	}
 
 	/**
@@ -1316,8 +1313,10 @@ public class TextUtils {
 	public static String wrap(final String str,
 							  final int wrapLength,
 							  final String newLineStr,
+							  final String newLineSpacer,
+							  final int firstLineHeadLength,
 							  final boolean wrapLongWords) {
-		return wrap(str, wrapLength, newLineStr, wrapLongWords, " ");
+		return wrap(str, wrapLength, newLineStr, newLineSpacer, firstLineHeadLength, wrapLongWords, " ");
 	}
 
 	/**
@@ -1404,7 +1403,7 @@ public class TextUtils {
 	 *  </tr>
 	 * </table>
 	 * @param str  the String to be word wrapped, may be null
-	 * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
+	 * @param wrapLengthTotal  the column to wrap the words at, less than 1 is treated as 1
 	 * @param newLineStr  the string to insert for a new line,
 	 *  {@code null} uses the system property line separator
 	 * @param wrapLongWords  true if long words (such as URLs) should be wrapped
@@ -1413,8 +1412,10 @@ public class TextUtils {
 	 * @return a line with newlines inserted, {@code null} if null input
 	 */
 	public static String wrap(final String str,
-							  int wrapLength,
+							  final int wrapLengthTotal,
 							  String newLineStr,
+							  String newLineSpacer,
+							  int firstLineHeadLength,
 							  final boolean wrapLongWords,
 							  String wrapOn) {
 		if (str == null) {
@@ -1423,8 +1424,15 @@ public class TextUtils {
 		if (newLineStr == null) {
 			newLineStr = System.lineSeparator();
 		}
+		if(newLineSpacer == null) {
+			newLineSpacer = "";
+		}
+		int wrapLength = wrapLengthTotal;
 		if (wrapLength < 1) {
 			wrapLength = 1;
+		}
+		if (firstLineHeadLength < 0) {
+			firstLineHeadLength = 0;
 		}
 		if (isBlank(wrapOn)) {
 			wrapOn = " ";
@@ -1435,7 +1443,21 @@ public class TextUtils {
 		final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
 		int matcherSize = -1;
 
+		boolean first = true;
+
 		while (offset < inputLineLength) {
+			if(first) {
+				first = false;
+				wrapLength = wrapLengthTotal - firstLineHeadLength;
+				if(wrapLength < 1) {
+					wrapLength = 1;
+				}
+			} else {
+				wrapLength = wrapLengthTotal - newLineSpacer.length();
+				if (wrapLength < 1) {
+					wrapLength = 1;
+				}
+			}
 			int spaceToWrapAt = -1;
 			Matcher matcher = patternToWrapOn.matcher(str.substring(offset,
 					Math.min((int) Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
@@ -1464,6 +1486,7 @@ public class TextUtils {
 				// normal case
 				wrappedLine.append(str, offset, spaceToWrapAt);
 				wrappedLine.append(newLineStr);
+				wrappedLine.append(newLineSpacer);
 				offset = spaceToWrapAt + 1;
 
 			} else {
@@ -1475,6 +1498,7 @@ public class TextUtils {
 					// wrap really long word one line at a time
 					wrappedLine.append(str, offset, wrapLength + offset);
 					wrappedLine.append(newLineStr);
+					wrappedLine.append(newLineSpacer);
 					offset += wrapLength;
 					matcherSize = -1;
 				} else {
@@ -1491,6 +1515,7 @@ public class TextUtils {
 						}
 						wrappedLine.append(str, offset, spaceToWrapAt);
 						wrappedLine.append(newLineStr);
+						wrappedLine.append(newLineSpacer);
 						offset = spaceToWrapAt + 1;
 					} else {
 						if (matcherSize == 0 && offset != 0) {

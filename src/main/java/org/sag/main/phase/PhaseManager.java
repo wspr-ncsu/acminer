@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.sag.common.logging.ILogger;
+import org.sag.common.tools.TextUtils;
 import org.sag.main.AndroidInfo;
 import org.sag.main.IDataAccessor;
 
 import com.google.common.base.Splitter;
+
+import javax.xml.soap.Text;
 
 public class PhaseManager {
 	
@@ -151,6 +154,21 @@ public class PhaseManager {
 			logger.info("{}: Successfully ran all phase groups.\n\tSuccess:     {}\n\tNot Enabled: {}", cn, success, notEnabled);
 			return true;
 		}
+	}
+
+	public String getHelpDiag(String spacer) {
+		StringBuilder sb = new StringBuilder();
+		if(!groups.isEmpty()) {
+			String header = "[Phase Groups]";
+			int leftHeader = (80 - header.length() - spacer.length()) / 2;
+			int rightHeader = 80 - header.length() - leftHeader - spacer.length();
+			sb.append(spacer).append(TextUtils.leftPad("", leftHeader, "+")).append(header).append(TextUtils.leftPad("", rightHeader, '+'));
+			for (IPhaseGroup g : groups) {
+				sb.append("\n\n").append(g.getHelpDiag(spacer + "  "));
+			}
+			sb.append("\n\n").append(spacer).append(TextUtils.leftPad("",80-spacer.length(),"+"));
+		}
+		return sb.toString();
 	}
 
 }

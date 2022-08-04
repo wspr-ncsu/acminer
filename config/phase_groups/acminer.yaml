@@ -30,10 +30,10 @@ quick-options:
       ControlPredicateFilter: [EnableDebug, 'true']
       ACMiner: [EnableDebug, 'true']
   VariedAnalysis:
-    description: "Enables the VariedAnalysis phase. TODO"
+    description: "Enables the VariedAnalysis phase. See phase description."
     enabled-phases:
       VariedAnalysis: [enable, 'true']
   VariedCallGraphAnalysis:
-    description: "Enables the VariedCallGraphAnalysis phase. TODO"
+    description: "Enables the VariedCallGraphAnalysis phase. See phase description."
     enabled-phases:
       VariedCallGraphAnalysis: [enable, 'true']

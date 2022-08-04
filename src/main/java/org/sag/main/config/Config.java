@@ -108,8 +108,12 @@ public final class Config {
 		}
 		keyToPathOverrides.put(key, Arrays.asList(values));
 	}
-	
+
 	public Path getFilePath(String key) {
+		return getFilePath(key, false);
+	}
+	
+	public Path getFilePath(String key, boolean forHelpDiag) {
 		Objects.requireNonNull(key);
 		String k = key;
 		String first = null;
@@ -140,11 +144,19 @@ public final class Config {
 				}
 			}
 		}
-		
-		if(others.isEmpty())
-			return FileHelpers.getPath(first);
-		else
-			return FileHelpers.getPath(first,others.toArray(new String[0]));
+
+		// Don't include the root directory for the help dialog
+		if(forHelpDiag) {
+			if(others.isEmpty())
+				return FileHelpers.getSimplePath(first);
+			else
+				return FileHelpers.getSimplePath(first, others.toArray(new String[0]));
+		} else {
+			if(others.isEmpty())
+				return FileHelpers.getPath(first);
+			else
+				return FileHelpers.getPath(first,others.toArray(new String[0]));
+		}
 	}
 	
 	private List<String> lookupFilePathValues(String key) {
