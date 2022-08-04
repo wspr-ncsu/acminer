@@ -11,3 +11,6 @@ buildSrc/build
 
 # Ignore the working directory of ACMiner
 working
+
+# Ignore idea project directory
+.idea
