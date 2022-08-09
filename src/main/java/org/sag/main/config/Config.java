@@ -64,7 +64,7 @@ public final class Config {
 	
 	/*public static void main(String[] args) throws Exception {
 		Config g = getConfigFromResources(new LoggerWrapperSLF4J(Config.class));
-		g.setFilePathEntry("work-dir", "C:\\CS\\Documents\\Work\\Research\\woof\\aosp-9.0.0\\input");
+		g.setFilePathEntry("work-dir", "C:\\CS\\Documents\\Work\\Research\\fred\\aosp-9.0.0\\input");
 		for(String key : g.keyToPathSegments.keySet()) {
 			System.out.println(g.getFilePath(key));
 		}

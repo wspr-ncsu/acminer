@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<AndroidInfo>
+	<Name>Pixel 3a</Name>
+	<Codename>Sargo</Codename>
+	<Model>AOSP</Model>
+	<Country>ALL</Country>
+	<Carrier>ALL</Carrier>
+	<Version>10.0.0</Version>
+	<Revision>r1</Revision>
+	<Build>QP1A.190711.019</Build>
+	<BuildDate>2020-04-04</BuildDate>
+	<SecurityPatchDate>2019-09-05</SecurityPatchDate>
+	<Api>29</Api>
+	<Java>8</Java>
+	<ImageURLs Size="0"></ImageURLs>
+	<Notes>
+		source build/envsetup.sh
+		lunch aosp_sargo-user
+		make -j18
+		
+		AOSP 10 is similar to 9 in that the system image is split among a bunch of different images. It has the addition of the product image which
+		appears to contain apps that can be swapped out as needed depending on the product build or something. Also, the /product and /vendor 
+		directories are included in the /system directory via sym link.
+		
+		I combined the system, system_other, vendor, and product images by putting each image in the approiate directory off of root. The product
+		and vendor images were also included in the /system directory to simulate the symbolic links since those don't exist in zip files.
+		The system_other image was extracted into the /system directory so the oat and vdex files get included into the approiate application
+		folder in the system directory. The entire root file system was then ziped into combined_img_org.7z like before. The /system directory
+		was then ziped into its own file system_img.zip because this is the format our tool is expecting at the moment. The original flashable
+		versions of the images are zipped in the build_imgs.7z and the userdebug versions of the flashable images (i.e., with root capability)
+		are in build_imgs_userdebug.7z. The original extracted versions of the images can be found at system_img_org.zip, system_other_img_org.zip, 
+		vendor_img_org.zip, and product_img_org.zip.
+		
+		Pulled the android_api.jar from "prebuilts/sdk/29/system/android.jar". This is the system API that includes things omitted by "@hide" but also tagged 
+		with "@SystemApi". So compared to the normal Android API there may be additional methods, fields, classes, and changes in constructors (if the 
+		constructor is hidden from the normal API, the normal API provides a default constructor that is package private). Both the normal API and system
+		API include elements that are public and protected. There may also be package private methods but these generally generated when the API is generated
+		and not part of the original code.
+		
+		Pulled the "AndroidManifest.xml" from "frameworks/base/core/res/AndroidManifest.xml". This is the system android manifest.
+		
+		How to unlock and install Android 10 on Pixel 3a
+			1. Make sure the platform tools are up to date in the Android studio
+			2. Turn on device and go through the initial setup.
+			3. Connect the device to wifi. (needed to get the OEM unlocking to not be grayed out)
+			4. Settings, tap About phone, then tap Build number seven (7) times.
+			5. When you see the message You are a developer, tap the back button.
+			6. Tap Developer options and enable OEM unlocking
+			7. Also enable USB debugging.
+			8. Plugin the device and accept the on device prompt
+			9. Run "adb devices" to make sure it shows up.
+			10. Run "adb reboot fastboot"
+			11. On the device that says fastbootd select boot to bootloader to get it in the actual fastboot
+			12. Run "fastboot devices" to make sure it shows up
+			12. Run "fastboot flashing unlock" to unlock the device.
+			13. Run "set ANDROID_PRODUCT_OUT=Path\to\directory\with\systemimg" so fastboot knows where to find the system images
+			14. Also cd to this directory just in case.
+			15. Run "fastboot flashall -w" to flash everything in this directory.
+	</Notes>
+</AndroidInfo>

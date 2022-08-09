@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ControlPredicateFilter>
+	<And>
+		<Not>
+			<KeepLoopHeader>
+				<MatchExitsUsingLengthOf>true</MatchExitsUsingLengthOf>
+				<MatchLoopIncrement>true</MatchLoopIncrement>
+				<ConditionalMethods Size="22">
+					<ConditionalMethod>&lt;android.app.usage.TimeSparseArray: int size()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;android.content.res.XmlBlock$Parser: int getDepth()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;android.content.res.XmlBlock$Parser: int next()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;android.util.SparseArray: int size()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;android.util.SparseBooleanArray: int size()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;android.util.SparseIntArray: int size()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;com.android.internal.util.ArrayUtils: boolean isEmpty(int[])&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;com.android.internal.util.ArrayUtils: boolean isEmpty(java.lang.Object[])&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;com.android.internal.util.ArrayUtils: boolean isEmpty(java.util.Collection)&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.io.InputStream: int read()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.io.InputStream: int read(byte[])&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.io.InputStream: int read(byte[], int, int)&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.io.InputStream: long skip(long)&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.lang.CharSequence: int length()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.util.Collection: boolean isEmpty()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.util.Collection: int size()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.util.Iterator: boolean hasNext()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.util.ListIterator: boolean hasPrevious()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.util.Map: boolean isEmpty()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;java.util.Map: int size()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;org.kxml2.io.KXmlParser: int getDepth()&gt;</ConditionalMethod>
+					<ConditionalMethod>&lt;org.kxml2.io.KXmlParser: int next()&gt;</ConditionalMethod>
+				</ConditionalMethods>
+			</KeepLoopHeader>
+		</Not>
+		<Not>
+			<KeepSourceMethodIs Value="(equal-name &lt;clinit&gt;)"/>
+		</Not>
+		<Not>
+			<KeepSourceMethodIs Value="(equal-name &lt;init&gt;)"/>
+		</Not>
+		<Or>
+			<KeepSourceMethodIsInContextQuerySubGraph NoSubGraphs="true"/>
+			<KeepContextQueryMethodReturnValueUse>
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepContextQueryMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(or (regex-name-words `\buid|user(\s)?(id|handle)|(current|incoming|target|owner|source|calling)\suser|profile\sparent\b`) (and (regex-name-words `\b(handle|id(entifier)?|equals)\b`) (regex-class-words `\buser\s(info|handle)\b` 0)))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepFieldValueUse Value="(or (regex-name-words `\buid|user(\s)?(id|handle)|(current|incoming|target|owner|source|calling)\suser\b`) (and (regex-name-words `\b(handle|id(entifier)?|equals)\b`) (regex-class-words `\buser\s(info|handle)\b` 0)))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepNumberConstantUse Value="(integer -10000)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="true"/>
+				</Restrictions>
+			</KeepNumberConstantUse>
+			<KeepMethodReturnValueUse Value="(regex-name-words `\bpid|ppid|(parent|process)(\s)?((p)?id)\b`)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepFieldValueUse Value="(regex-name-words `\bpid|ppid|(parent|process)(\s)?((p)?id)\b`)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepMethodReturnValueUse Value="(regex-name-words `\bgid|group(\s)?(id)\b`)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepFieldValueUse Value="(regex-name-words `\bgid|group(\s)?(id)\b`)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepNumberConstantUse Value="(or (integer 1023) (integer 1032) (integer 9997))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="true"/>
+				</Restrictions>
+			</KeepNumberConstantUse>
+			<KeepMethodReturnValueUse Value="(regex-name-words `\bapp(\s)?(id)\b`)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepFieldValueUse Value="(regex-name-words `\bapp(\s)?(id)\b`)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepNumberConstantUse Value="(or (integer 1000) (integer 1001) (integer 2000) (integer 1007) (integer 1010) (integer 1013) (integer 1019) (integer 1016) (integer 1027) (integer 1002) (integer 1037) (integer 1041) (integer 1047))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="true"/>
+				</Restrictions>
+			</KeepNumberConstantUse>
+			<KeepMethodReturnValueUse Value="(equal-name equals)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="MethodMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)|(get\stypes\s[\w\s]+\scaller)\b`) (and (equal-class ComponentName) (equal-name getClassName)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="MethodMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)|(get\stypes\s[\w\s]+\scaller)\b`) (and (equal-class ComponentName) (equal-name getClassName)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="FieldMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)\b`) (and (equal-class ActivityInfo) (equal-name name)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="FieldMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)\b`) (and (equal-class ActivityInfo) (equal-name name)))"/>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name contains)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<IsDeclaringClassOfMethod DeclaringClass="java.util.Collection" IncludeSubClasses="true"/>
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="MethodMatcher" Value="(signature `&lt;java.util.Arrays: java.util.List asList(java.lang.Object[])&gt;`)"/>
+							<Restrictions UseUnion="false">
+								<IsValueUsedInMethodCall Position="0">
+									<Matcher class="FieldMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)\b`) (and (equal-class ActivityInfo) (equal-name name)))"/>
+								</IsValueUsedInMethodCall>
+								<IsValueUsedInMethodCall Position="0">
+									<Matcher class="MethodMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)|(get\stypes\s[\w\s]+\scaller)\b`) (and (equal-class ComponentName) (equal-name getClassName)))"/>
+								</IsValueUsedInMethodCall>
+							</Restrictions>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="FieldMatcher" Value="(regex-name-words `\b(enabled\sservices\s(package\snames|\w+\scurrent\sprofiles))\b`)"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="FieldMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)\b`) (and (equal-class ActivityInfo) (equal-name name)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="FieldMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)\b`) (and (equal-class ActivityInfo) (equal-name name)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="MethodMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)|(get\stypes\s[\w\s]+\scaller)\b`) (and (equal-class ComponentName) (equal-name getClassName)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="MethodMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)|(get\stypes\s[\w\s]+\scaller)\b`) (and (equal-class ComponentName) (equal-name getClassName)))"/>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(signature `&lt;com.android.internal.util.ArrayUtils: boolean contains(java.lang.Object[],java.lang.Object)&gt;`)">
+				<Restrictions UseUnion="false">
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="FieldMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)\b`) (and (equal-class ActivityInfo) (equal-name name)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="MethodMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)|(get\stypes\s[\w\s]+\scaller)\b`) (and (equal-class ComponentName) (equal-name getClassName)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="1">
+							<Matcher class="FieldMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)\b`) (and (equal-class ActivityInfo) (equal-name name)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="1">
+							<Matcher class="MethodMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)|(get\stypes\s[\w\s]+\scaller)\b`) (and (equal-class ComponentName) (equal-name getClassName)))"/>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name containsKey)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<IsDeclaringClassOfMethod DeclaringClass="java.util.Map" IncludeSubClasses="true"/>
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="FieldMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)\b`) (and (equal-class ActivityInfo) (equal-name name)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="MethodMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)|(get\stypes\s[\w\s]+\scaller)\b`) (and (equal-class ComponentName) (equal-name getClassName)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="FieldMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)\b`) (and (equal-class ActivityInfo) (equal-name name)))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="MethodMatcher" Value="(or (regex-name-words `\b((source|target|owner)\s(package|pkg))|((package|pkg|process)\s(name(s)?|list))|(packages\s\w+\suid)|(get\stypes\s[\w\s]+\scaller)\b`) (and (equal-class ComponentName) (equal-name getClassName)))"/>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name equals)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="MethodMatcher" Value="(and (regex-class-words \bsystem\sproperties\b 0) (regex-name-words \bget\b))"/>
+							<Restrictions UseUnion="false">
+								<IsValueUsedInMethodCall Position="0">
+									<Matcher class="StringMatcher" Value="(regex `ro\.(factorytest|test_harness|debuggable|secure)`)"/>
+								</IsValueUsedInMethodCall>
+							</Restrictions>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="MethodMatcher" Value="(and (regex-class-words \bsystem\sproperties\b 0) (regex-name-words \bget\b))"/>
+							<Restrictions UseUnion="false">
+								<IsValueUsedInMethodCall Position="0">
+									<Matcher class="StringMatcher" Value="(regex `ro\.(factorytest|test_harness|debuggable|secure)`)"/>
+								</IsValueUsedInMethodCall>
+							</Restrictions>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name equalsIgnoreCase)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="MethodMatcher" Value="(and (regex-class-words \bsystem\sproperties\b 0) (regex-name-words \bget\b))"/>
+							<Restrictions UseUnion="false">
+								<IsValueUsedInMethodCall Position="0">
+									<Matcher class="StringMatcher" Value="(regex `ro\.(factorytest|test_harness|debuggable|secure)`)"/>
+								</IsValueUsedInMethodCall>
+							</Restrictions>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="MethodMatcher" Value="(and (regex-class-words \bsystem\sproperties\b 0) (regex-name-words \bget\b))"/>
+							<Restrictions UseUnion="false">
+								<IsValueUsedInMethodCall Position="0">
+									<Matcher class="StringMatcher" Value="(regex `ro\.(factorytest|test_harness|debuggable|secure)`)"/>
+								</IsValueUsedInMethodCall>
+							</Restrictions>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(and (regex-class-words \bsystem\sproperties\b 0) (regex-name-words \bget\b))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<IsValueUsedInMethodCall Position="0">
+						<Matcher class="StringMatcher" Value="(regex `ro\.(factorytest|test_harness|debuggable|secure)`)"/>
+					</IsValueUsedInMethodCall>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name equals)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<Restrictions UseUnion="true">
+						<Restrictions UseUnion="false">
+							<IsValueUsedInMethodCall Position="-1">
+								<Matcher class="MethodMatcher" Value="(and (regex-class-words \bintent\b 0) (regex-name-words \bget\saction\b))"/>
+							</IsValueUsedInMethodCall>
+							<IsValueUsedInMethodCall Position="0">
+								<Matcher class="StringMatcher" Value="(regex `^android\.intent\.action\.(CLOSE_SYSTEM_DIALOGS|DISMISS_KEYBOARD_SHORTCUTS|MEDIA_BUTTON|MEDIA_SCANNER_SCAN_FILE|SHOW_KEYBOARD_SHORTCUTS|MASTER_CLEAR|ACTION_SHUTDOWN)|android\.appwidget\.action\.(APPWIDGET_CONFIGURE|APPWIDGET_UPDATE)|android\.location\.HIGH_POWER_REQUEST_CHANGE|com\.android\.omadm\.service\.CONFIGURATION_UPDATEandroid\.text\.style\.SUGGESTION_PICKED`)"/>
+							</IsValueUsedInMethodCall>
+						</Restrictions>
+						<Restrictions UseUnion="false">
+							<IsValueUsedInMethodCall Position="0">
+								<Matcher class="MethodMatcher" Value="(and (regex-class-words \bintent\b 0) (regex-name-words \bget\saction\b))"/>
+							</IsValueUsedInMethodCall>
+							<IsValueUsedInMethodCall Position="-1">
+								<Matcher class="StringMatcher" Value="(regex `^android\.intent\.action\.(CLOSE_SYSTEM_DIALOGS|DISMISS_KEYBOARD_SHORTCUTS|MEDIA_BUTTON|MEDIA_SCANNER_SCAN_FILE|SHOW_KEYBOARD_SHORTCUTS|MASTER_CLEAR|ACTION_SHUTDOWN)|android\.appwidget\.action\.(APPWIDGET_CONFIGURE|APPWIDGET_UPDATE)|android\.location\.HIGH_POWER_REQUEST_CHANGE|com\.android\.omadm\.service\.CONFIGURATION_UPDATEandroid\.text\.style\.SUGGESTION_PICKED`)"/>
+							</IsValueUsedInMethodCall>
+						</Restrictions>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name equals)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="FieldMatcher" Value="(regex-name-words `\bpermission(s)?\b`)"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="FieldMatcher" Value="(regex-name-words `\bpermission(s)?\b`)"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="StringMatcher" Value="(regex `^android\.permission(\-group)?\..*`)"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="StringMatcher" Value="(regex `^android\.permission(\-group)?\..*`)"/>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name contains)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<IsDeclaringClassOfMethod DeclaringClass="java.util.Collection" IncludeSubClasses="true"/>
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="MethodMatcher" Value="(signature `&lt;java.util.Arrays: java.util.List asList(java.lang.Object[])&gt;`)"/>
+							<Restrictions UseUnion="false">
+								<IsValueUsedInMethodCall Position="0">
+									<Matcher class="FieldMatcher" Value="(regex-name-words `\bpermission(s)?\b`)"/>
+								</IsValueUsedInMethodCall>
+							</Restrictions>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="FieldMatcher" Value="(regex-name-words `\bpermission(s)?\b`)"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="StringMatcher" Value="(regex `^android\.permission(\-group)?\..*`)"/>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(signature `&lt;com.android.internal.util.ArrayUtils: boolean contains(java.lang.Object[],java.lang.Object)&gt;`)">
+				<Restrictions UseUnion="false">
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="FieldMatcher" Value="(regex-name-words `\bpermission(s)?\b`)"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="1">
+							<Matcher class="FieldMatcher" Value="(regex-name-words `\bpermission(s)?\b`)"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="1">
+							<Matcher class="StringMatcher" Value="(regex `^android\.permission(\-group)?\..*`)"/>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name containsKey)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<IsDeclaringClassOfMethod DeclaringClass="java.util.Map" IncludeSubClasses="true"/>
+					<Restrictions UseUnion="true">
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="FieldMatcher" Value="(regex-name-words `\bpermission(s)?\b`)"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="StringMatcher" Value="(regex `^android\.permission(\-group)?\..*`)"/>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepFieldValueUse Value="(and (regex-class-words `\b(activity|provider|component|service)\sinfo\b` 0) (regex-name-words `\bexported|(is\ssystem)|(grant\suri\spermissions)\b`))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepFieldValueUse Value="(and (regex-class-words `\b(broadcast|process)\srecord\b` 0) (regex-name-words `\bisolated|(app\sop)\b`))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepFieldValueUse Value="(and (equal-full-class android.os.Build) (regex-name-words \bis\sdebuggable\b))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepFieldValueUse Value="(and (regex-class-words `\b(package\smanager\sservice)\b`) (regex-name-words \bsafe\smode\b))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name equals)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<Restrictions UseUnion="false">
+						<IsValueUsedInMethodCall Position="-1">
+							<Matcher class="StringMatcher" Value="(or (equal system) (equal android))"/>
+						</IsValueUsedInMethodCall>
+						<IsValueUsedInMethodCall Position="0">
+							<Matcher class="StringMatcher" Value="(or (equal system) (equal android))"/>
+						</IsValueUsedInMethodCall>
+					</Restrictions>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(regex-name-words \bcarrier\sprivilege\sstatus\b)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(equal-name getBoolean)">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+					<IsDeclaringClassOfMethod DeclaringClass="android.os.Bundle" IncludeSubClasses="true"/>
+					<IsValueUsedInMethodCall Position="-1">
+						<Matcher class="MethodMatcher" Value="(and (regex-name-words \bget\suser\srestrictions\b) (regex-class-words \buser\smanager\b))"/>
+					</IsValueUsedInMethodCall>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepFieldValueUse Value="(and (regex-name-words `\b(flag(s)?)\b`) (regex-class-words `\b((uri\spermission)|((package|application)\smanager\sservice)|permission\s(state|data)|package\ssetting|layout\sparams|display|(activity|application|provider|user|service|display|device)\sinfo)\b` 0))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepMethodReturnValueUse Value="(and (regex-name-words `\b(flag(s)?)\b`) (regex-class-words `\b((uri\spermission)|((package|application)\smanager\sservice)|permission\s(state|data)|package\ssetting|layout\sparams|display|(activity|application|provider|user|service|display|device)\sinfo)\b` 0))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepFieldValueUse Value="(and (regex-name-words `\b(get\smode)|(factory\stest)\b`) (regex-class-words `\b(activity\smanager\sservice)|(factory\stest)\b` 0))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+			<KeepMethodReturnValueUse Value="(and (regex-name-words `\b(get\smode)|(factory\stest)\b`) (regex-class-words `\b(activity\smanager\sservice)|(factory\stest)\b` 0))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(and (regex-name-words `\bget\s(permission|private)\sflags`) (regex-class-words `\b(package\smanager)|(permissions\sstate)\b`))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepMethodReturnValueUse Value="(or (signature `&lt;android.accessibilityservice.AccessibilityServiceInfo: int getCapabilities()&gt;`) (signature `&lt;com.android.server.pm.PackageSettingBase: int getEnabled(int)&gt;`))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepMethodReturnValueUse>
+			<KeepFieldValueUse Value="(or (signature `&lt;com.android.server.pm.BasePermission: int type&gt;`))">
+				<Restrictions UseUnion="false">
+					<IsInArithmeticChain HandleConstants="false"/>
+				</Restrictions>
+			</KeepFieldValueUse>
+		</Or>
+	</And>
+</ControlPredicateFilter>

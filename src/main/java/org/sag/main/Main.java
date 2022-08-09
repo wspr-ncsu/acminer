@@ -207,7 +207,7 @@ public class Main {
 		else
 			System.exit(1);
 	}
-	
+
 	private final String genHelpMsg() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Usage:    ").append(TextUtils.wrap("[-h|--help] [-i <dir>] [-p <phase_group> <phase_1> " +

@@ -1,0 +1,401 @@
+//  Excluded Elements Database Text File
+//  Add/Remove  Type             Options  Signature
+
+    +           ClassPath        [all]    java.*
+    +           ClassPath        [all]    javax.*
+    +           ClassPath        [all]    gov.nist.javax.*
+    +           ClassPath        [all]    org.*
+    -           ClassPath        [all]    org.chromium.*
+    +           ClassPath        [all]    sun.*
+    +           ClassPath        [all]    com.sun.*
+    +           ClassPath        [all]    com.ibm.*
+    +           ClassPath        [all]    com.google.common.*
+    +           ClassPath        [all]    soot.*
+    +           ClassPath        [all]    junit.*
+    +           ClassPath        [all]    com.android.dex.*
+    +           ClassPath        [all]    dalvik.*
+    +           ClassPath        [all]    fi.*
+    +           ClassPath        [all]    android.test.*
+    +           ClassPath        [all]    android.text.*
+    +           ClassPath        [all]    android.util.*
+    +           ClassPath        [all]    com.android.internal.telephony.nano.*
+    +           ClassPath        [all]    com.android.internal.telephony.protobuf.nano.*
+    +           ClassPath        [all]    com.android.framework.protobuf.nano.*
+    +           ClassPath        [all]    android.animation.*
+    +           ClassPath        [all]    android.view.animation.*
+    +           ClassPath        [all]    com.google.protobuf.*
+    +           ClassPath        [all]    com.android.phone.ecc.nano.*
+// Most of the stuff in policy is not security related but there are a few services, mainly those in keyguard
+// However, aparently they added a few anonymous classes which are not actually globally accessable but need to
+// be included to get the tool to run
+    +           ClassPath        [all]    com.android.server.policy.*
+    -           ClassPath        [all]    com.android.server.policy.keyguard.*
+    -           ClassPath        [all]    com.android.server.policy.ImmersiveModeConfirmation$2
+    -           ClassPath        [all]    com.android.server.policy.PhoneWindowManager$4
+    -           ClassPath        [all]    com.android.server.policy.PermissionPolicyService$2
+    +           ClassPath        [all]    com.android.server.am.TaskRecord
+//Android 10 - Moved to window manager package
+    +           ClassPath        [all]    com.android.server.wm.TaskRecord
+    +           Interface                 android.view.animation.Animation$AnimationListener
+    +           Interface                 android.view.animation.Interpolator
+    +           SuperClass                android.view.animation.Animation
+    +           ClassPath        [all]    android.view.Choreographer
+    +           ClassPath        [all]    android.view.Surface
+    +           ClassPath        [all]    android.view.SurfaceControl
+    +           ClassPath        [all]    android.view.SurfaceSession
+    +           ClassPath        [all]    android.view.View
+    +           SuperClass       [all]    android.view.View
+    +           ClassPath        [all]    android.view.ViewRootImpl
+    +           ClassPath        [all]    android.view.ViewDebug
+    +           ClassPath        [all]    android.view.LayoutInflater
+    +           SuperClass                android.view.GestureDetector
+    +           Interface                 android.view.GestureDetector$OnGestureListener
+    +           Interface                 android.view.GestureDetector$OnDoubleTapListener
+    +           Interface                 android.view.GestureDetector$OnContextClickListener
+    +           ClassPath        [all]    com.android.server.wm.ScreenRotationAnimation
+    +           ClassPath        [all]    com.android.server.wm.WindowSurfacePlacer
+    +           ClassPath        [all]    com.android.server.wm.WindowState
+    +           ClassPath        [all]    com.android.server.wm.WindowContainer
+    +           ClassPath        [all]    com.android.server.wm.AppWindowToken
+    +           ClassPath        [all]    com.android.server.wm.WindowToken
+    +           ClassPath        [all]    android.content.pm.ResolveInfo
+    +           ClassPath        [all]    android.widget.RemoteViews
+    +           ClassPath        [all]    android.app.AlertDialog$*
+    +           ClassPath        [all]    android.os.UserHandle
+    +           ClassPath        [all]    android.os.Process
+//    +           ClassPath        [all]    android.os.Binder
+    +           ClassPath        [all]    android.os.Environment
+    +           ClassPath        [all]    android.os.Debug
+    +           ClassPath        [all]    android.os.Trace
+    +           ClassPath        [all]    android.os.SystemClock
+    +           ClassPath        [all]    android.app.PendingIntent
+    +           ClassPath        [all]    android.content.Intent
+    +           ClassPath        [all]    android.content.IntentFilter
+    +           ClassPath        [all]    android.content.IntentSender
+    +           SuperClass                android.content.ContentResolver
+    +           ClassPath        [all]    com.android.server.IntentResolver
+	
+// Because of fake broadcast receivers added for testing and then just left in Android 9
+    +           SuperClass                android.content.BroadcastReceiver
+// Android 9 - Remove some of the common stack management methods because they are not important
+    +           SuperClass                com.android.server.wm.ConfigurationContainer
+    +           ClassPath        [all]    com.android.server.am.ActivityStack
+// Android 10 - Moved to window manager package
+    +           ClassPath        [all]    com.android.server.wm.ActivityStack
+// Android 9 - The lambda functions
+    +           SuperClass                com.android.internal.util.function.pooled.OmniFunction
+    +           ClassPath        [all]    com.android.internal.util.function.*
+// Android 9 - Remove ActivityStarter because it is largely noise that blows up many entry points (was basically excluded in 7 and 8)
+    +           ClassPath        [all]    com.android.server.am.ActivityStarter
+// Android 10 - Moved to window manager package
+    +           ClassPath        [all]    com.android.server.wm.ActivityStarter
+// Android 10 - Everything is going through this class to dump data which is blowing up the dump and shell command call graphs
+    +           ClassPath        [all]    com.android.server.utils.PriorityDump
+// Android 10 - Code of updateOomAdjLocked and startProcessLocked from AM moved here
+	+           ClassPath        [all]    com.android.server.am.OomAdjuster
+	+           ClassPath        [all]    com.android.server.am.ProcessList
+// Android 10 - Too much authorization logic captured
+	+           ClassPath        [all]    com.android.server.wm.BarController
+
+// Logging
+    +           ClassPath        [all]    android.util.Log
+    +           ClassPath        [all]    android.telephony.Rlog
+    +           ClassPath        [all]    com.android.messaging.util.LogUtil
+    +           ClassPath        [all]    com.android.messaging.util.LogSaver
+    +           ClassPath        [all]    com.android.messaging.util.LoggingTimer
+    +           ClassPath        [all]    com.android.server.telecom.Log
+    +           ClassPath        [all]    com.android.server.telecom.Log$*
+    +           ClassPath        [all]    com.android.services.telephony.Log
+    +           ClassPath        [all]    com.android.internal.logging.*
+    +           ClassPath        [all]    com.android.server.am.ActivityMetricsLogger
+// Android 10 - Moved to window manager package
+    +           ClassPath        [all]    com.android.server.wm.ActivityMetricsLogger
+    +           ClassPath        [all]    android.metrics.*
+
+// Related to parcel and bundles
+    +           Interface                 android.os.Parcelable
+    +           ClassPath        [all]    android.os.Bundle
+    +           ClassPath        [all]    android.os.BaseBundle
+    +           ClassPath        [all]    android.os.PersistableBundle
+    +           ClassPath        [all]    android.os.Parcel
+
+// The ICU4J libraries integrated into Android 7 and above. Provides Unicode and globalization support.
+    +           ClassPath        [all]    android.icu.*
+
+    +           ClassPath        [all]    android.net.Uri
+    +           ClassPath        [all]    android.net.Uri$*
+    +           ClassPath        [all]    libcore.util.Objects
+    +           ClassPath        [all]    com.android.internal.os.BinderInternal
+    +           ClassPath        [all]    android.telephony.PhoneNumberUtils
+    +           ClassPath        [all]    com.android.emailcommon.utility.TextUtilities
+    +           ClassPath        [all]    com.android.internal.telephony.SmsHeader
+    +           Interface                 android.os.Parcelable$Creator
+    +           SuperClass       [all]    com.android.internal.telephony.SmsMessageBase
+    +           SuperClass       [all]    java.lang.Throwable
+    +           SuperClass       [all]    android.app.Dialog
+    +           Interface                 android.animation.Animator$AnimatorListener
+    +           Interface                 android.animation.Animator$AnimatorPauseListener
+    +           Interface                 android.animation.LayoutTransition$TransitionListener
+    +           Interface                 android.animation.TimeAnimator$TimeListener
+    +           Interface                 android.animation.TypeEvaluator
+    +           Interface                 android.animation.ValueAnimator$AnimatorUpdateListener
+    +           SuperClass                android.animation.Animator
+    +           SuperClass                android.animation.AnimatorListenerAdapter
+    +           SuperClass                android.animation.Keyframe
+    +           ClassPath        [all]    libcore.io.IoUtils
+    +           ClassPath        [all]    libcore.io.Streams
+    +           ClassPath        [all]    android.os.FileUtils
+    +           ClassPath        [all]    com.android.server.wm.DisplaySettings
+    +           ClassPath        [all]    android.database.sqlite.*
+    +           ClassPath        [all]    android.content.res.*
+    +           ClassPath        [all]    com.android.server.InputMethodManagerService$InputMethodFileManager
+    +           ClassPath        [all]    com.android.emailcommon.utility.Utility
+    +           ClassPath        [all]    com.android.internal.util.FastPrintWriter
+    +           ClassPath        [all]    com.android.internal.util.FastXmlSerializer
+	+           ClassPath        [all]    com.android.internal.util.XmlUtils
+    +           ClassPath        [all]    com.android.internal.util.JournaledFile
+	+           ClassPath        [all]    com.android.internal.util.ArrayUtils
+    +           ClassPath        [all]    com.android.internal.util.FileRotator
+	
+//bouncycastle for android with lots of callgraph inacucercies
+    +           ClassPath        [all]    com.android.org.bouncycastle.*
+
+    +           ClassPath        [all]    com.android.server.content.SyncStorageEngine
+    +           ClassPath        [all]    android.content.pm.RegisteredServicesCache
+    +           ClassPath        [all]    com.android.server.pm.Installer
+    +           Interface        [all]    java.lang.AutoCloseable
+    -           ClassPath        [all]    android.media.MediaSession2Service$MediaSession2ServiceStub
+    +           Interface        [all]    libcore.io.Os
+    +           Interface        [all]    android.database.Cursor
+    +           SuperClass                java.lang.Object
+    +           Interface                 java.lang.Iterable
+    +           Interface                 java.util.Iterator
+    +           Interface                 java.util.ListIterator
+    +           Interface                 java.lang.Comparable
+    +           Interface                 java.util.Comparator
+    +           Interface                 java.util.Collection
+    +           Interface                 java.util.Deque
+    +           Interface                 java.util.Enumeration
+    +           Interface                 java.util.List
+    +           Interface                 java.util.Map
+    +           Interface                 java.util.Map$Entry
+    +           Interface                 java.util.NavigableMap
+    +           Interface                 java.util.NavigableSet
+    +           Interface                 java.util.Queue
+    +           Interface                 java.util.Set
+    +           Interface                 java.util.SortedMap
+    +           Interface                 java.util.SortedSet
+    +           Interface                 java.lang.Runnable
+    +           Interface                 android.os.IInterface
+    +           Interface                 java.util.function.Predicate
+    +           Interface                 java.util.function.Consumer
+    +           Interface                 java.util.function.UnaryOperator
+    +           Interface                 java.util.function.ToLongFunction
+    +           Interface                 java.util.function.ToLongBiFunction
+    +           Interface                 java.util.function.ToIntFunction
+    +           Interface                 java.util.function.ToIntBiFunction
+    +           Interface                 java.util.function.ToDoubleFunction
+    +           Interface                 java.util.function.ToDoubleBiFunction
+    +           Interface                 java.util.function.Supplier
+    +           Interface                 java.util.function.ObjLongConsumer
+    +           Interface                 java.util.function.ObjIntConsumer
+    +           Interface                 java.util.function.ObjDoubleConsumer
+    +           Interface                 java.util.function.LongUnaryOperator
+    +           Interface                 java.util.function.LongToIntFunction
+    +           Interface                 java.util.function.LongToDoubleFunction
+    +           Interface                 java.util.function.LongSupplier
+    +           Interface                 java.util.function.LongPredicate
+    +           Interface                 java.util.function.LongFunction
+    +           Interface                 java.util.function.LongConsumer
+    +           Interface                 java.util.function.LongBinaryOperator
+    +           Interface                 java.util.function.IntUnaryOperator
+    +           Interface                 java.util.function.IntToLongFunction
+    +           Interface                 java.util.function.IntToDoubleFunction
+    +           Interface                 java.util.function.IntSupplier
+    +           Interface                 java.util.function.IntPredicate
+    +           Interface                 java.util.function.IntFunction
+    +           Interface                 java.util.function.IntConsumer
+    +           Interface                 java.util.function.IntBinaryOperator
+    +           Interface                 java.util.function.Function
+    +           Interface                 java.util.function.DoubleUnaryOperator
+    +           Interface                 java.util.function.DoubleToLongFunction
+    +           Interface                 java.util.function.DoubleToIntFunction
+    +           Interface                 java.util.function.DoubleSupplier
+    +           Interface                 java.util.function.DoublePredicate
+    +           Interface                 java.util.function.DoubleFunction
+    +           Interface                 java.util.function.DoubleConsumer
+    +           Interface                 java.util.function.DoubleBinaryOperator
+    +           Interface                 java.util.function.BooleanSupplier
+    +           Interface                 java.util.function.BiPredicate
+    +           Interface                 java.util.function.BinaryOperator
+    +           Interface                 java.util.function.BiFunction
+    +           Interface                 java.util.function.BiConsumer
+
+//Uninteresting graphics classes
+    +           ClassPath        [all]    android.graphics.*
+    -           ClassPath        [all]    android.graphics.HardwareRenderer$ProcessInitializer$1
+    +           SuperClass                android.graphics.drawable.Drawable
+	+           ClassPath        [all]    android.support.graphics.*
+	+           ClassPath        [all]    android.support.design.*
+	+           ClassPath        [all]    android.support.rastermill.*
+    +           ClassPath        [all]    android.support.v4.graphics.*
+    +           ClassPath        [all]    android.support.v7.graphics.*
+
+// The Handler/Looper design construct allows one thread to send a message or runnable to another thread to be processed.
+// It is a common way of message passing between threads. However, it requires special handeling to map the message passing to the message processor because of the thread interactions. Thus until a better solution is found we 
+// exclude both classes.
+    +           ClassPath        [all]    android.os.Handler
+    +           SuperClass                android.os.Handler
+    +           ClassPath        [all]    android.os.Looper
+    +           ClassPath        [all]    android.os.Message
+    +           ClassPath        [all]    android.os.ResultReceiver
+    +           ClassPath        [all]    android.os.RemoteCallback
+    +           ClassPath        [all]    android.os.RemoteCallbackList
+    +           Interface                 android.os.Handler$Callback
+	
+// ASyncTask is a quick way of setting up a Thread to perform a task in the background and then publish the results to the UI Thread. Essentially, it is a wrapper around Handler/Looper.
+// As most of the operations are performed in the background in the 'doInBackground' method (i.e. they do not appear in the call graph after 'execute' is called), this requires special handeling like Handler/Looper.
+// We exclude all subclass methods of ASyncTask for now until a better solution is found.
+    +           SuperClass                android.os.AsyncTask
+
+//Common UI for preferences and settings in Apps
+//Related to Fragment subclasses
+    +           ClassPath        [all]    android.preference.*
+    +           ClassPath        [all]    android.support.v7.preference.*
+    +           Interface                 android.content.SharedPreferences
+    +           Interface                 android.content.SharedPreferences$OnSharedPreferenceChangeListener
+    +           Interface                 android.content.SharedPreferences$Editor
+
+//The ContentProvider functionility depends entirely on the implementer of which there are many.
+//As such most of the functions in ContentProvider cause call graph explosion.
+//If we ever want to analyize this we need to come up with a way to target our analysis but for now we just exclude it.
+//Note this will only cause problems with versions of android where the stub child class (i.e. ContentProvider$Transport) is not in a sub-class of ContentProvider.
+    +           SuperClass                android.content.ContentProvider
+
+// Same issue as the ContentProvider. The service is android.app.LoadedApk$ServiceDispatcher$InnerConnection 
+// and all functionality is in the android.app.LoadedApk$ServiceDispatcher which requires one to override the doConnected method.
+    +           SuperClass                android.app.LoadedApk$ServiceDispatcher
+
+// Same issue as ContentProvider. The service is ContentObserver$Transport and all the functionality is in ContentObserver's onChange and a few other methods.
+    +           SuperClass                android.database.ContentObserver
+	
+// Loads data from file in an async manner. The interfaces have a large amount of implementations as they are callbacks.
+// Note this uses the Handler model for the callbacks.
+    +           SuperClass                android.content.Loader
+    +           ClassPath        [all]    android.content.Loader
+    +           Interface                 android.content.Loader$OnLoadCompleteListener
+    +           Interface                 android.content.Loader$OnLoadCanceledListener
+
+// A callback interface whose methods lead to an ActionProvider -> many Adapter and Observer implementations -> android.database.DataSetObservable: void notifyChanged() -> all Adapter and Observer implementations
+    +           Interface                 android.media.MediaRouter$Callback
+	
+//The InputMethodService is not actually a service. It is the class one extends to create a keyboard application. 
+//Unfortunately, all the functionality is of the message/handler model and therefore all of it goes through a single method to be executed.
+//Moreover everything executed deals with views and besides this class there appears to be no central way to avoid the views but this also does not appear to be security related.
+	+           SuperClass                android.inputmethodservice.InputMethodService
+	+           SuperClass                android.inputmethodservice.InputMethodService$InputMethodImpl
+	+           SuperClass                android.inputmethodservice.InputMethodService$InputMethodSessionImpl
+	+           ClassPath        [all]    android.inputmethodservice.InputMethodService$Insets
+
+//Context special handeling
+//Exclude everything from the context class and all of the overriding methods of its subclasses
+//Then include only a few specific methods related to permission checks
+    +           SuperClass                android.content.Context
+	-           MethodSpecial             IncludeSubClasses=true ClassName=android.content.Context Method=(or (contain-name enforce) (contain-name Enforce) (and (or (contain-name check) (contain-name Check)) (or (contain-name permission) (contain-name Permission))))
+	
+// These methods are common methods for dumping or writing data to files. They contain a large amount of other method calls as well which tend to blow up the call graph. Moreover, their definition is in a class that cannot be
+// outright excluded. So we have to individually exclude each method. Do not remove these unless they no longer exist or a better way of handeling them is developed.
+    +           MethodSignature           <com.android.server.wm.WindowStateAnimator: void dump(java.io.PrintWriter,java.lang.String,boolean)>
+    +           MethodSignature           <com.android.server.wm.WindowState: void dump(java.io.PrintWriter,java.lang.String,boolean)>
+    +           MethodSignature           <com.android.server.devicepolicy.DevicePolicyManagerService: void saveSettingsLocked(int)>
+    +           MethodSignature           <com.android.server.devicepolicy.DevicePolicyManagerService: void loadSettingsLocked(com.android.server.devicepolicy.DevicePolicyManagerService$DevicePolicyData,int)>
+    +           MethodSignature           <com.android.server.devicepolicy.DevicePolicyManagerService: void readFromXml(org.xmlpull.v1.XmlPullParser)>
+    +           MethodSignature           <com.android.server.devicepolicy.DevicePolicyManagerService: void writeToXml(org.xmlpull.v1.XmlSerializer)>
+// Moved to an inner class in android 8
+    +           MethodSignature           <com.android.server.devicepolicy.DevicePolicyManagerService$ActiveAdmin: void readFromXml(org.xmlpull.v1.XmlPullParser)>
+    +           MethodSignature           <com.android.server.devicepolicy.DevicePolicyManagerService$ActiveAdmin: void writeToXml(org.xmlpull.v1.XmlSerializer)>
+
+	+           MethodSignature           <com.android.server.pm.Settings: void writePackageRestrictionsLPr(int)>
+	+           MethodSignature           <com.android.server.pm.Settings: void writeLPr()>
+	+           MethodSignature           <com.android.server.pm.UserManagerService: void writeUserLP(com.android.server.pm.UserManagerService$UserData)>
+	+           MethodSignature           <com.android.server.pm.UserManagerService: void writeUserListLP()>
+	+           MethodSignature           <com.android.server.net.NetworkPolicyManagerService: void writePolicyLocked()>
+    +           MethodSignature           <com.android.server.net.NetworkPolicyManagerService: void writePolicyAL()>
+    +           MethodSignature           <com.android.internal.telephony.RIL: java.lang.String retToString(int,java.lang.Object)>
+
+// Methods added to try and get the 101 Entry Points with a crazy number of control predicates under control
+    +           MethodSignature           <com.android.server.am.ActivityStackSupervisor: com.android.server.am.ActivityStack getStack(int)>
+    +           MethodSignature           <com.android.server.am.ActivityStackSupervisor: com.android.server.am.ActivityStack getStack(int,boolean,boolean)>
+    +           MethodSignature           <com.android.server.am.ActivityStackSupervisor: boolean resumeFocusedStackTopActivityLocked()>
+    +           MethodSignature           <com.android.server.am.ActivityStackSupervisor: boolean resumeFocusedStackTopActivityLocked(com.android.server.am.ActivityStack,com.android.server.am.ActivityRecord,android.app.ActivityOptions)>
+    +           MethodSignature           <com.android.server.am.ActivityStarter: void doPendingActivityLaunchesLocked(boolean)>
+    +           MethodSignature           <com.android.server.am.ActivityStarter: int startActivityUnchecked(com.android.server.am.ActivityRecord,com.android.server.am.ActivityRecord,android.service.voice.IVoiceInteractionSession,com.android.internal.app.IVoiceInteractor,int,boolean,android.app.ActivityOptions,com.android.server.am.TaskRecord)>
+// Android 9 - Removed because ActivityStack is excluded entirely
+//	+           MethodSignature           <com.android.server.am.ActivityStack: boolean resumeTopActivityUncheckedLocked(com.android.server.am.ActivityRecord,android.app.ActivityOptions)>
+//	+           MethodSignature           <com.android.server.am.ActivityStack: boolean resumeTopActivityInnerLocked(com.android.server.am.ActivityRecord,android.app.ActivityOptions)>
+
+// Method signature was changed in android 8
+    +           MethodSignature           <com.android.server.am.ActivityStarter: int startActivityUnchecked(com.android.server.am.ActivityRecord,com.android.server.am.ActivityRecord,android.service.voice.IVoiceInteractionSession,com.android.internal.app.IVoiceInteractor,int,boolean,android.app.ActivityOptions,com.android.server.am.TaskRecord,com.android.server.am.ActivityRecord[])>
+    +           MethodSignature           <com.android.server.am.ActivityStackSupervisor: void ensureActivitiesVisibleLocked(com.android.server.am.ActivityRecord,int,boolean)>
+    +           MethodSignature           <com.android.server.am.ActiveServices: void bringDownServiceIfNeededLocked(com.android.server.am.ServiceRecord,boolean,boolean)>
+    +           MethodSignature           <com.android.server.am.ActiveServices: void bringDownServiceLocked(com.android.server.am.ServiceRecord)>
+    +           MethodSignature           <com.android.server.am.ActiveServices: android.content.ComponentName startServiceInnerLocked(com.android.server.am.ActiveServices$ServiceMap,android.content.Intent,com.android.server.am.ServiceRecord,boolean,boolean)>
+    +           MethodSignature           <com.android.server.am.ActivityManagerService: void backgroundServicesFinishedLocked(int)>
+// Android 9 - Removed because ActivityStack is excluded entirely
+//	+           MethodSignature           <com.android.server.am.ActivityStack: void startActivityLocked(com.android.server.am.ActivityRecord,boolean,boolean,android.app.ActivityOptions)>
+//	+           MethodSignature           <com.android.server.am.ActivityStack: void startActivityLocked(com.android.server.am.ActivityRecord,com.android.server.am.ActivityRecord,boolean,boolean,android.app.ActivityOptions)>
+//	+           MethodSignature           <com.android.server.am.ActivityStack: void ensureActivitiesVisibleLocked(com.android.server.am.ActivityRecord,int,boolean)>
+
+// Added in android 8 because for some reason using the entry point in the window manager service was not ok
+    +           MethodSignature           <com.android.server.am.ActivityRecord: void setVisibility(boolean)>
+    +           MethodSignature           <com.android.server.am.ActivityRecord: void setVisible(boolean)>
+    +           MethodSignature           <com.android.server.am.ActivityRecord: void createWindowContainer()>
+    +           MethodSignature           <com.android.server.am.ActivityRecord: void removeWindowContainer()>
+    +           MethodSignature           <com.android.server.wm.WindowManagerService: boolean updateFocusedWindowLocked(int,boolean)>
+    +           MethodSignature           <com.android.server.am.ActivityRecord: void relaunchActivityLocked(boolean,boolean)>
+    +           MethodSignature           <com.android.server.am.ActivityRecord: boolean ensureActivityConfigurationLocked(int,boolean)>
+    
+// Attempts to make the bootAnimationComplete ep in AMS smaller - worked but only a minor improvement
+    +           MethodSignature           <com.android.server.am.ActivityStackSupervisor: boolean removeTaskByIdLocked(int,boolean,boolean)>
+    +           MethodSignature           <com.android.server.am.ActivityManagerService: void handleAppDiedLocked(com.android.server.am.ProcessRecord,boolean,boolean)>
+// Android 9 - Removed because ActivityStack is excluded entirely
+//    +           MethodSignature           <com.android.server.am.ActivityStack: com.android.server.am.ActivityRecord finishCurrentActivityLocked(com.android.server.am.ActivityRecord,int,boolean)>
+//    +           MethodSignature           <com.android.server.am.ActivityStack: boolean startPausingLocked(boolean,boolean,com.android.server.am.ActivityRecord,boolean)>
+
+// Android 10 - Methods from before that are now in the window manager package
+    +           MethodSignature           <com.android.server.wm.ActivityStackSupervisor: boolean removeTaskByIdLocked(int,boolean,boolean,boolean,java.lang.String)>
+    +           MethodSignature           <com.android.server.wm.ActivityStackSupervisor: boolean removeTaskByIdLocked(int,boolean,boolean,java.lang.String)>
+    +           MethodSignature           <com.android.server.wm.ActivityRecord: void setVisibility(boolean)>
+    +           MethodSignature           <com.android.server.wm.ActivityRecord: void setVisible(boolean)>
+    +           MethodSignature           <com.android.server.wm.ActivityRecord: void createAppWindowToken()>
+    +           MethodSignature           <com.android.server.wm.ActivityRecord: void removeWindowContainer()>
+    +           MethodSignature           <com.android.server.wm.ActivityRecord: void relaunchActivityLocked(boolean,boolean)>
+    +           MethodSignature           <com.android.server.wm.ActivityRecord: boolean ensureActivityConfiguration(int,boolean)>
+    +           MethodSignature           <com.android.server.wm.ActivityRecord: boolean ensureActivityConfiguration(int,boolean,boolean)>
+	+           MethodSignature           <com.android.server.wm.RootActivityContainer: void ensureActivitiesVisible(com.android.server.wm.ActivityRecord,int,boolean)>
+	+           MethodSignature           <com.android.server.wm.RootActivityContainer: void ensureActivitiesVisible(com.android.server.wm.ActivityRecord,int,boolean,boolean)>
+    +           MethodSignature           <com.android.server.wm.ActivityStarter: int startActivityUnchecked(com.android.server.wm.ActivityRecord,com.android.server.wm.ActivityRecord,android.service.voice.IVoiceInteractionSession,com.android.internal.app.IVoiceInteractor,int,boolean,android.app.ActivityOptions,com.android.server.wm.TaskRecord,com.android.server.wm.ActivityRecord[],boolean)>
+    +           MethodSignature           <com.android.server.wm.RootActivityContainer: com.android.server.wm.ActivityStack getStack(int)>
+    +           MethodSignature           <com.android.server.wm.RootActivityContainer: com.android.server.wm.ActivityStack getStack(int,int)>
+    +           MethodSignature           <com.android.server.wm.RootActivityContainer: boolean resumeFocusedStacksTopActivities()>
+    +           MethodSignature           <com.android.server.wm.RootActivityContainer: boolean resumeFocusedStacksTopActivities(com.android.server.wm.ActivityStack,com.android.server.wm.ActivityRecord,android.app.ActivityOptions)>
+    +           MethodSignature           <com.android.server.wm.ActivityStartController: void doPendingActivityLaunches(boolean)>
+	
+// Android 10 - Signature changed
+    +           MethodSignature           <com.android.server.devicepolicy.DevicePolicyManagerService: void readFromXml(org.xmlpull.v1.XmlPullParser,boolean)>
+    +           MethodSignature           <com.android.server.devicepolicy.DevicePolicyManagerService$ActiveAdmin: void readFromXml(org.xmlpull.v1.XmlPullParser,boolean)>
+
+// Android 10 - Methods that lead to large call graphs in the PMS
+    +           MethodSignature           <com.android.server.pm.PackageManagerService: void updateDefaultHomeNotLocked(android.util.SparseBooleanArray)>
+    +           MethodSignature           <com.android.server.pm.PackageManagerService: boolean updateDefaultHomeNotLocked(int)>
+// Android 10 - Hugh amount of noise in the captured authorization logic
+	+           MethodSignature           <com.android.server.wm.DisplayPolicy: boolean isStatusBarKeyguard()>
+	+           MethodSignature           <com.android.server.pm.permission.PermissionsState: boolean updatePermissionFlags(com.android.server.pm.permission.BasePermission,int,int,int)>
+	+           MethodSignature           <com.android.server.pm.permission.PermissionManagerService: void restorePermissionState(android.content.pm.PackageParser$Package,boolean,java.lang.String,com.android.server.pm.permission.PermissionManagerServiceInternal$PermissionCallback)>
+	+           MethodSignature           <com.android.server.pm.permission.PermissionManagerService: void setWhitelistedRestrictedPermissionsForUser(android.content.pm.PackageParser$Package,int,java.util.List,int,int,com.android.server.pm.permission.PermissionManagerServiceInternal$PermissionCallback)>
+	+           MethodSignature           <com.android.server.pm.ComponentResolver$ActivityIntentResolver: java.util.List queryIntent(android.content.Intent,java.lang.String,int,int>
+	+           MethodSignature           <com.android.server.pm.ComponentResolver$ActivityIntentResolver: java.util.List queryIntentForPackage(android.content.Intent,java.lang.String,int,java.util.List,int)>
+	+           MethodSignature           <com.android.server.pm.PackageManagerService: java.util.List filterCandidatesWithDomainPreferredActivitiesLPr(android.content.Intent,int,java.util.List,com.android.server.pm.PackageManagerService$CrossProfileDomainInfo,int)>
+	+           MethodSignature           <com.android.server.pm.PackageManagerService: java.util.List maybeAddInstantAppInstaller(java.util.List,android.content.Intent,java.lang.String,int,int,boolean)>
+	+           MethodSignature           <com.android.server.pm.PackageManagerService: java.util.List queryIntentActivitiesInternal(android.content.Intent,java.lang.String,int,int,int,boolean,boolean)>
+	

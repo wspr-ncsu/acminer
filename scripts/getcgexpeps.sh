@@ -5,7 +5,7 @@ OPTIND=1 # Reset in case getopts has been used previously in the shell.
 
 indir=$PWD
 outfile="cgexpeps.txt"
-size=20
+size=10
 
 USAGE=""
 read -r -d '' USAGE <<-'EOF'
@@ -13,7 +13,7 @@ read -r -d '' USAGE <<-'EOF'
 	
 	Outputs a list of the entry points which have some form of call graph. To
 	determine this it finds all files with a size greater than size (default
-	is 20M) and retrieves the entry point listed in the comment of the graphml
+	is 10M) and retrieves the entry point listed in the comment of the graphml
 	file. So this really should only be run on a cg_method debug dir.
 	
 	Options:
@@ -21,10 +21,10 @@ read -r -d '' USAGE <<-'EOF'
 	      # Print this message and exit.
 	  -o <output_file> [default: ./cgexpeps.txt]
 	  -i <input_dir> [default: ./]
-	  -s <lower_file_size_bound_in_MB> [default: 20]
+	  -s <lower_file_size_bound_in_MB> [default: 10]
 	Examples:
 	  getcgexpeps
-	  getcgexpeps -o path/to/out.txt -i path/to/indir -s 30
+	  getcgexpeps -o path/to/out.txt -i path/to/indir -s 20
 EOF
 
 while getopts "h?o:i:s:" opt; do

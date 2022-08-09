@@ -186,7 +186,7 @@ def addArgs(args, newArgs, toAdd) {
 
 task helpDiag(dependsOn: shadowJar, type: JavaExec) {
 	group = "Run"
-	description = "Output the help dialog of the ${rootProject.name}-All.jar. Any other options given will be ignored except jvm arguments given in the following example format -Djvmargs='-Xms32g -Xmx32g'. Note setting the jvm arguments overrides the default jvm arguments, which are '-Xms8g -Xmx(max_free_memory - 2)g', and is not recommended."
+	description = "Output the help dialog of the ${rootProject.name}-All.jar. Any other options given will be ignored except jvm arguments."
 	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
 	
 	doFirst{
@@ -202,7 +202,7 @@ task helpDiag(dependsOn: shadowJar, type: JavaExec) {
 
 task acminer(dependsOn: shadowJar, type: JavaExec) {
 	group = "Run"
-	description = "Run the ${rootProject.name}-All.jar with the default options for a run of the phase group ACMiner. The options may be customized by giving the jar arguments through gradle using the following example format --args='-i \"path/to/working dir\"', where everything inside the '' of --args= would be formatted exactly as if it was passed directly to the jar. You may also customize the jvm arguments using the following example format -Djvmargs='-Xms32g -Xmx32g'. Note setting the jvm arguments overrides the default jvm arguments, which are '-Xms8g -Xmx(max_free_memory - 2)g', and is not recommended."
+	description = "Run the ${rootProject.name}-All.jar with the default options for a complete run of the phase group ACMiner. Use this if you wish to perform a normal run of ACMiner."
 	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
 	
 	doFirst {
@@ -237,7 +237,7 @@ task acminer(dependsOn: shadowJar, type: JavaExec) {
 
 task acminerDebugLite(dependsOn: shadowJar, type: JavaExec) {
 	group = "Run"
-	description = "TODO"
+	description = "Run the ${rootProject.name}-All.jar with the ACMinerDebug phase of the ACMiner phase group enabled using the options 'enable:true,Paths:true,CGMethod:true,CGMethodLimit:5'. This provides useful but limited amount of debugging information to aid the user in eliminating entry point for call graph bloat. These options will cause ACMiner to run up to and including the phase ACMinerDebug and produce the call graph files of all entry point methods that are either full call graphs or limited to a depth of 5. Additionally, it will generate for each entry point a list of paths from the entry point node to all reachable end nodes (i.e. methods with no outgoing edges in the call graph). This is another way of visualizing the call graph of an entry point."
 	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
 	
 	doFirst {
@@ -275,7 +275,7 @@ task acminerDebugLite(dependsOn: shadowJar, type: JavaExec) {
 
 task acminerDebug(dependsOn: shadowJar, type: JavaExec) {
 	group = "Run"
-	description = "TODO"
+	description = "Run the ${rootProject.name}-All.jar with the ACMinerDebug phase of the ACMiner phase group enabled using all options of the ACMinerDebug phase. This provides all the debugging information the tool is able to produce to aid the user in eliminating entry point call graph bloat. This often ends up being tens of GBs of information, so we recommend you start with 'acminerDebugLite'. These options will cause ACMiner to run up to and including the phase ACMinerDebug. For a complete list of the options that are enabled and a description of what is being output, see the help message."
 	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
 	
 	doFirst {
@@ -310,7 +310,7 @@ task acminerDebug(dependsOn: shadowJar, type: JavaExec) {
 
 task acminerDebugAll(dependsOn: shadowJar, type: JavaExec) {
 	group = "Run"
-	description = "TODO"
+	description = "Run the ${rootProject.name}-All.jar with the ACMinerDebug phase of the ACMiner phase group enabled using all options of the ACMinerDebug phase. Additionally, this will enable all debugging options of all other phases as well. This produces an extreme amount of output and should only be used when there is an actual error in the ACMiner tool itself and not just an issue with call graph bloat."
 	classpath = files("${buildDir}/libs/${rootProject.name}-All.jar")
 	
 	doFirst {
